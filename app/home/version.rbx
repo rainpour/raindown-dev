@@ -9,11 +9,16 @@ class Version < LowNode
   def initialize
     response = Net::HTTP.get(URI(ENDPOINT))
     @version = ::JSON.parse(response)['version']
+  rescue StandardError
+    # When RubyGems can't be reached.
+    @version = nil
   end
 
   def render
     <ul id="releases">
-      <li>v{@version}</li>
+      <{ if: @version }>
+        <li>v{@version}</li>
+      <{ :if }>
       <li><a href="https://github.com/raindeer-rb/raindown/releases">{"Releases"}</a></li>
     </ul>
   end

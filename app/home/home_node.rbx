@@ -11,7 +11,7 @@ class HomeNode < LowNode
   end
 
   def render(event:)
-    <{ Layout: title=@title section='section-home' }>
+    <{ Layout: title=@title section='section-home' path='/' }>
       <div id="raindown" role="img" aria-label="Raindown">
         <{ @cloud }>
       </div>

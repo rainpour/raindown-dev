@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Writes "build/sitemap.xml" from the exported pages so search engines can find every docs page. Run after "rain build".
+
+require 'erb'
+
+SITE_URL = 'https://raindown.dev'
+
+build_path = File.expand_path('../build', __dir__)
+# Pages are exported as "docs/nodes.html", which is served at "/docs/nodes".
+files = Dir.glob('**/*.html', base: build_path) - ['404.html']
+paths = files.map { |file| file == 'index.html' ? '/' : "/#{file.delete_suffix('.html')}" }
+
+urls = paths.sort.map { |path| "  <url><loc>#{ERB::Util.html_escape(SITE_URL + path)}</loc></url>" }
+
+File.write(File.join(build_path, 'sitemap.xml'), <<~XML)
+  <?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  #{urls.join("\n")}
+  </urlset>
+XML

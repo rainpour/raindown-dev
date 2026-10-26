@@ -19,9 +19,20 @@ Directives in code and comments aren't highlighted, matching what Raindown rende
 
 The previews render the unsaved text with `raindown FILE --stdin`, so they update as you type and never change the file. The table of contents and table alignment are written to the file by `raindown FILE`, and endpoints only run there with `-x`.
 
+## Install
+
+The extension isn't on the VS Code Marketplace yet. Package it from the [source](https://github.com/raindeer-rb/raindown/tree/main/vscode) and install it:
+
+```shell
+git clone https://github.com/raindeer-rb/raindown.git
+cd raindown/vscode
+npx @vscode/vsce package
+code --install-extension raindown-*.vsix
+```
+
 ## Requirements
 
-The `raindown` executable, from the [standalone binary](/docs/binaries) or via `gem install raindown`. If `raindown` isn't on your `PATH` then set `raindown.path` to the full path of the executable.
+The `raindown` executable, from the [standalone binary](/docs/getting-started#installation) or via `gem install raindown`. If `raindown` isn't on your `PATH` then set `raindown.path` to the full path of the executable.
 
 ## Settings
 

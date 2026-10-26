@@ -3,4 +3,12 @@ title: Markdown superset
 icon: markdown
 ---
 
-Use Raindown in your markdown or use the `.rd`/`.raindown` extension for the full syntax.
+Enable Raindown in your markdown with `raindown: true` or use the `.rd` extension.
+
+```
+---
+raindown: true
+---
+```
+
+Markdown is rendered via Rust so it's fast!

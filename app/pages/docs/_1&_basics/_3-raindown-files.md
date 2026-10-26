@@ -36,7 +36,19 @@ Directives in prose or code are left as text.
 
 ## Markdown files
 
-Markdown files can opt in to bare directives too, with the `--bare` flag:
+Markdown files can opt in to bare directives too, with `raindown: true` in their front matter:
+
+```md
+---
+raindown: true
+---
+
+# Notes
+
+:toc
+```
+
+Or, for every Markdown file Raindown reads, with the `--bare` flag:
 
 ```shell
 raindown README.md --bare
@@ -44,4 +56,4 @@ raindown README.md --bare
 
 ## Syntax highlighting
 
-The [VS Code extension](/docs/extensions) highlights bare directives in `.rd` files, and `<{ }>` directives in Markdown files.
+The [VS Code extension](/docs/extensions) highlights bare directives in `.rd` files, and `<{ }>` directives in Markdown files. Its preview renders bare directives in Markdown files with `raindown: true`, but doesn't highlight them yet.

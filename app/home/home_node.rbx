@@ -40,8 +40,8 @@ class HomeNode < LowNode
         <h2>{"Examples"}</h2>
 
         <p class="lead">
-          {"Use the antlers syntax in Markdown or the bare syntax in Raindown."}<br />
-          {"Optionally use the bare syntax in Markdown with"} <code>raindown --bare</code>
+          {"Use Raindown in Markdown with"} <code>raindown: true</code> {"front matter."}<br />
+          {"Or rename the file to use the"} <code>.rd</code> {"file extension."}
         </p>
 
         <div class="pages">

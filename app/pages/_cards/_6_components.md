@@ -1,5 +1,5 @@
 ---
-title: Nodes
+title: Custom Components
 summary: Extend component directives with your own custom code
 ---
 

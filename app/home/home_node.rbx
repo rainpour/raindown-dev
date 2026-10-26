@@ -24,7 +24,7 @@ class HomeNode < LowNode
         <p><strong>{"Stay sane out there."}</strong></p>
 
         <span class="actions">
-          <a href="/docs/getting-started" role="button"><i class="bi bi-book"></i>{"Getting Started"}</a>
+          <a href="/docs/getting-started" role="button"><i class="bi bi-download"></i>{"Getting Started"}</a>
         </span>
 
         <{ Version }>

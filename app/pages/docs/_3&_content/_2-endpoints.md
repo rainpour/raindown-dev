@@ -35,7 +35,7 @@ raindown api.md -x
 
 ## Refreshing responses
 
-To refresh a response, empty its code block, and its fetched date is updated too.
+To refresh a response, empty its code block, and its fetched date is updated too. Or select the endpoint in the [terminal UI](/docs/cli#terminal-ui) and press `x`, or click its `[Run]` button.
 
 The date is an HTML comment, so it's hidden on the page, but anyone reading the file or the HTML source, people or agents, can tell how fresh the example is.
 
@@ -46,4 +46,4 @@ The snippet runs with the `curl` binary but not through a shell, so pipes, redir
 Curl is limited to HTTP requests, values can't read files (`-d @body.json`), and other options like `-o`, `-F` or `-K` are rejected. Raindown also runs curl without your `~/.curlrc`.
 
 > [!WARNING]
-> An `endpoint: :x` directive runs its request when the file is rendered, without the `-x` flag. Check files you didn't write before rendering them. Reading a file, and the VS Code preview, never run endpoints.
+> An `endpoint: :x` directive runs its request when Raindown writes back to the file, while watching or with `--html`, without the `-x` flag. Check files you didn't write before watching or rendering them. Reading a file, and the VS Code preview, never run endpoints.

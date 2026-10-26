@@ -64,7 +64,7 @@ Raindown keeps one instance of each node and its props while it runs, so `replac
 A name only starts a node block when it's a loaded LowNode with a `replace` method, so other text like `Note:` is left alone.
 
 > [!WARNING]
-> Nodes run your project's code whenever Raindown renders the file.
+> Nodes run your project's code whenever Raindown writes back to or renders the file.
 
 ## Built-in nodes
 

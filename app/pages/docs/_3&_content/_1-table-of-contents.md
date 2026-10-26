@@ -9,7 +9,7 @@ published: true
 
 ## Writing it into the file
 
-A `<{ toc: }>` block does that too, and also writes the table of contents into the Markdown below it as a list of links, updated whenever the file is rendered. That way people and agents reading the file see it as well:
+A `<{ toc: }>` block does that too, and also writes the table of contents into the Markdown below it as a list of links, updated whenever Raindown writes back to the file. That way people and agents reading the file see it as well:
 
 ```md
 <{ toc: }>

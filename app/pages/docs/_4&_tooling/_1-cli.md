@@ -31,22 +31,22 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 
 ## Commands
 
-| Command                | Description                                                                                  |
-| ---------------------- | -------------------------------------------------------------------------------------------- |
-| `raindown [PATH]`      | Watch a file, or the projects in a directory (default: the current directory)                |
-| `raindown init [DIR]`  | Create a `.raindown` folder for the project's [config](/docs/config) and [nodes](/docs/nodes) |
-| `raindown tui [PATH]`  | Browse a project's files and outlines in the [terminal UI](#terminal-ui)                     |
+| Command               | Description                                                                                   |
+| --------------------- | --------------------------------------------------------------------------------------------- |
+| `raindown [PATH]`     | Watch a file, or the projects in a directory (default: the current directory)                 |
+| `raindown init [DIR]` | Create a `.raindown` folder for the project's [config](/docs/config) and [nodes](/docs/nodes) |
+| `raindown tui [PATH]` | Browse a project's files and outlines in the [terminal UI](#terminal-ui)                      |
 
 ## Options
 
-| Option            | Description                                                                         |
-| ----------------- | ----------------------------------------------------------------------------------- |
-| `--html [OUTPUT]` | Render the file to HTML once, writing to `OUTPUT` or else printing to stdout        |
+| Option            | Description                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| `--html [OUTPUT]` | Render the file to HTML once, writing to `OUTPUT` or else printing to stdout                           |
 | `--stdin`         | Render Markdown from stdin once, without writing back to the file. Add `--html OUTPUT` to write a file |
-| `--bare`          | Allow [bare directives](/docs/raindown-files) like `:toc` in Markdown files         |
-| `-x`, `--execute` | Run [endpoint](/docs/endpoints) curl snippets that have no output yet               |
-| `-h`, `--help`    | Show the usage                                                                      |
-| `-v`, `--version` | Show the version                                                                    |
+| `--bare`          | Allow [bare directives](/docs/raindown-files) like `:toc` in Markdown files                            |
+| `-x`, `--execute` | Run [endpoint](/docs/endpoints) curl snippets that have no output yet                                  |
+| `-h`, `--help`    | Show the usage                                                                                         |
+| `-v`, `--version` | Show the version                                                                                       |
 
 Set `RAINDOWN_DEBUG=1` to show where an error happened.
 
@@ -77,16 +77,16 @@ Unless it reads from stdin, Raindown writes back to the file it watches or rende
  Tab Pane  Enter Open  x Run  e Edit  w Write back  r Reload  q Quit
 ```
 
-| Key                | Does                                                                      |
-| ------------------ | ------------------------------------------------------------------------- |
-| `↑` `↓` or `k` `j` | Move                                                                      |
-| `Tab`, `←` `→`     | Switch between the files and the outline                                  |
-| `Enter`            | Open a file, fold a folder or heading, or show what a directive wrote back |
-| `Space`            | Fold                                                                      |
-| `x`                | Run the selected endpoint, replacing its response                         |
+| Key                | Does                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------- |
+| `↑` `↓` or `k` `j` | Move                                                                                          |
+| `Tab`, `←` `→`     | Switch between the files and the outline                                                      |
+| `Enter`            | Open a file, fold a folder or heading, or show what a directive wrote back                    |
+| `Space`            | Like `Enter`, but without opening files or the editor                                         |
+| `x`                | Run the selected endpoint, replacing its response                                             |
 | `e`                | Open the file in your `$EDITOR` at the selected line, then write back to it when you close it |
-| `w`                | Write back to the file                                                    |
-| `r`                | Reload the files                                                          |
-| `q`                | Quit                                                                      |
+| `w`                | Write back to the file                                                                        |
+| `r`                | Reload the files                                                                              |
+| `q`                | Quit                                                                                          |
 
 The mouse works too: click a row to select it, and click a button like `[Run]` or `[+7]` to press it. The outline updates when the file changes, like when you save it in your editor, or when a `raindown` watcher in another terminal writes back to it.

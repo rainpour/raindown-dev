@@ -1,8 +1,16 @@
 # frozen_string_literal: true
 
 class Layout < LowNode
+  DESCRIPTION = 'Markdown that keeps itself up to date, so your docs, READMEs and agent files never go stale.'
+
+  # The 404 page has no path so it isn't given a canonical URL.
+  def initialize(path: nil)
+    @description = DESCRIPTION
+    @url = "https://raindown.dev#{path}" if path
+  end
+
   def render(event:, section:, title:)
-    <html>
+    <html lang="en">
       <head>
         <meta charset="UTF-8">
         <meta name="description" content="{@description}">
@@ -38,9 +46,12 @@ class Layout < LowNode
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
         <meta property="og:image" content="https://raindown.dev/assets/cover.png" />
-        <meta property="og:title" content="Raindown" />
-        <meta property="og:description" content="A Markdown superset for AI and humans 🌧️" />
-        <meta property="og:url" content="https://raindown.dev" />
+        <meta property="og:title" content="Raindown - {title}" />
+        <meta property="og:description" content="{@description}" />
+        <{ if: @url }>
+          <link rel="canonical" href="{@url}">
+          <meta property="og:url" content="{@url}" />
+        <{ :if }>
         <meta property="og:type" content="website" />
         <title>{"Raindown"} - {title}</title>
       </head>

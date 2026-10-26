@@ -45,7 +45,7 @@ class Layout < LowNode
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-        <meta property="og:image" content="https://raindown.dev/assets/cover.png" />
+        <meta property="og:image" content="https://raindown.dev/assets/cover.jpg" />
         <meta property="og:title" content="Raindown - {title}" />
         <meta property="og:description" content="{@description}" />
         <{ if: @url }>

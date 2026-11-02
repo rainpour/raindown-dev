@@ -8,6 +8,8 @@ class HomeNode < LowNode
     @cards = Raindeer.pages.list(folder: 'cards')
     @cloud = RainCloud.new.html
     @examples = Examples.all
+    @alternatives = Examples.all(Examples::ALTERNATIVES)
+    @syntax = Examples.syntax
   end
 
   def render(event:)
@@ -46,14 +48,25 @@ class HomeNode < LowNode
 
         <div class="pages">
           <{ for: example in: @examples }>
-            <figure class="page">
-              <figcaption>
-                <span class="file"><i class="bi bi-file-earmark-text"></i>{example.file}</span>
-                <span class="summary">{example.summary}</span>
-              </figcaption>
-              <pre class="line-numbers"><code class="language-{example.language}"><{ example.code }></code></pre>
-            </figure>
+            <{ ExamplePage example=example }>
           <{ :for }>
+        </div>
+
+        <h2>{"Alternate Syntax"}</h2>
+
+        <p class="lead">
+          {"Wrap directives in HTML comments to hide them."}<br />
+          {"Or use Deerheads to only output to HTML (no write-back)."}
+        </p>
+
+        <div class="pages">
+          <{ for: example in: @alternatives }>
+            <{ ExamplePage example=example }>
+          <{ :for }>
+        </div>
+
+        <div class="syntax">
+          <{ @syntax }>
         </div>
       </section>
 

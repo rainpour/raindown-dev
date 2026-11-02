@@ -9,18 +9,16 @@ published: true
 
 ## Writing it into the file
 
-A `<{ toc: }>` block does that too, and also writes the table of contents into the Markdown below it as a list of links, updated whenever Raindown writes back to the file. That way people and agents reading the file see it as well:
+A `<!-- toc: -->` block does that too, and also writes the table of contents into the Markdown below it as a list of links, updated whenever Raindown writes back to the file. That way people and agents reading the file see it as well, and on GitHub only the list shows:
 
 ```md
-<{ toc: }>
-
+<!-- toc: -->
 - [Notes](#notes)
   - [Setup](#setup)
-
-<{ :toc }>
+<!-- :toc -->
 ```
 
-The block needs `<{ :toc }>` after it.
+The block needs `<!-- :toc -->` after it. A `<{ toc: }>` block, in Deerheads, only renders into the HTML, like `<{ :toc }>`, and writes nothing.
 
 ## In Raindown files
 

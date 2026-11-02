@@ -1,4 +1,4 @@
-/* The Markdown and Raindown examples, side by side as two pages with line numbers. */
+/* The Markdown example, then the other ways to write a directive side by side, as pages with line numbers. */
 #examples {
   margin: 3rem auto;
   max-width: 1200px;
@@ -12,6 +12,57 @@
     text-align: center;
     color: #8891a5;
     margin-bottom: 2rem;
+  }
+
+  /* A heading after a row of pages, like Alternate Syntax, has room above it. */
+  .pages + h2 {
+    margin-top: 4rem;
+  }
+
+  /* The table of the ways a directive can be written, in a card like the example pages, which scrolls across on narrow
+     screens, on a darker header. */
+  .syntax {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid #2c3142;
+    border-radius: 10px;
+    background: #1d1f21;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 45%);
+    font-size: 0.9rem;
+
+    table {
+      margin: 0;
+      --pico-background-color: transparent;
+    }
+    th,
+    td {
+      padding: 0.6rem 1rem;
+      border-color: #2c3142;
+    }
+    /* Vertical borders between the columns, but not at the card's edges. */
+    th + th,
+    td + td {
+      border-left: 1px solid #2c3142;
+    }
+    thead th {
+      background: #16181d;
+      color: #e6e8ef;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    td:first-child code {
+      white-space: nowrap;
+    }
+    code {
+      background: #111317;
+      color: #e6e8ef;
+    }
+    ol {
+      margin: 0;
+      padding: 1rem 1rem 1rem 2.5rem;
+      border-top: 1px solid #2c3142;
+      color: #8891a5;
+    }
   }
 
   .pages {

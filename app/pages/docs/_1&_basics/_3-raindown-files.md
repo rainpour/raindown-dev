@@ -5,7 +5,7 @@ published: true
 
 <{ :toc }>
 
-Raindown is a superset of Markdown. Give a file the `.rd` or `.raindown` extension and a directive on its own line no longer needs delimiters:
+Raindown is a superset of Markdown. Give a file the `.rd` or `.raindown` extension and a content directive on its own line no longer needs delimiters:
 
 ```
 # Notes
@@ -15,14 +15,16 @@ Raindown is a superset of Markdown. Give a file the `.rd` or `.raindown` extensi
 
 ## Bare directives
 
-Bare directives have no end tags. A block directive like `if:` or `for:` applies to the Markdown block below it, up to the next blank line:
+Bare directives write their output back into the file, and show in bold in the HTML. They have no end tags, so a bare block, like `toc:`, holds the Markdown straight below it, up to the next blank line:
 
 ```
-if: draft
-This is a draft.
+toc:
+- [Notes](#notes)
 ```
 
-When a block needs to hold more than that, like several paragraphs, write it with delimiters and an end tag, which works in `.md` and `.rd`:
+When its output needs blank lines, put it in HTML comments with an end tag instead, `<!-- toc: -->` and `<!-- :toc -->`, which works in `.md` and `.rd`, and hides it in the HTML.
+
+Template directives, like `if:` and `for:`, are never bare, and always sit in `<{ }>`:
 
 ```
 <{ if: draft }>

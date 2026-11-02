@@ -33,12 +33,10 @@ end
 A node block names the node and its props, and Raindown writes the node's Markdown into it whenever the file is rendered:
 
 ```md
-<{ Changelog: limit=3 }>
-
+<!-- Changelog: limit=3 -->
 - **1.2.0** Bare directives close themselves
 - **1.1.0** Track fetched dates
-
-<{ :Changelog }>
+<!-- :Changelog -->
 ```
 
 In a [Raindown file](/docs/raindown-files) it can also use bare syntax, with the Markdown straight below it up to the next blank line (a bare node block can't write blank new lines):
@@ -49,7 +47,7 @@ Changelog: limit=3
 - **1.1.0** Track fetched dates
 ```
 
-A self-closing `<{ :Changelog }>`, or a bare `:Changelog`, renders the node into the HTML without writing it into the file.
+A self-closing `<{ :Changelog }>`, or a bare `:Changelog`, renders the node into the HTML without writing it into the file, as does a `<{ Changelog: }>` block.
 
 ## Props
 

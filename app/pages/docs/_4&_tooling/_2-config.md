@@ -5,13 +5,15 @@ published: true
 
 A project can keep settings in `config.yml` in its [`.raindown`](/docs/nodes) folder.
 
-## Hide directives
+## Highlighting code
 
-[Content directives](/docs/directives) like `toc:`, `files:`, a node's or an endpoint's show in bold in the HTML, so you can see where a page's content comes from. Hide them as HTML comments with:
+Code blocks are highlighted in the HTML. For a site that highlights code in the browser instead, like with [Prism](https://prismjs.com), turn it off and each code block gets a language class, like `<pre><code class="language-ruby">`:
 
 ```yaml
 # .raindown/config.yml
-hide_directives: true
+highlight_code: false
 ```
 
-Template directives are always invisible in the HTML.
+## Showing and hiding directives
+
+How a [directive](/docs/directives) is written decides whether it shows in the HTML: bare directives show in bold, and ones in HTML comments or `<{ }>` are left out. To hide a directive that writes back, write it in comments, like `<!-- toc: -->` and `<!-- :toc -->`.

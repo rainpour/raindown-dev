@@ -10,12 +10,10 @@ published: true
 A `files:` block writes a link to each file in a folder, by its title, into the Markdown, and renders them as a list in the HTML:
 
 ```md
-<{ files: folder: 'notes' }>
-
+<!-- files: folder: 'notes' -->
 - [Getting started](docs/_notes/_1-getting-started.md)
 - [Setup](docs/_notes/_2-setup.md)
-
-<{ :files }>
+<!-- :files -->
 ```
 
 The files come from the [metadata](/docs/metadata) of your project's Markdown files.

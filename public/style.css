@@ -188,3 +188,30 @@ footer {
 .highlight {
   border-radius: 10px;
 }
+
+/* A short label in a table cell, like whether a directive writes back, coloured by what it says. */
+.pill {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &.yes {
+    background: rgb(63 185 80 / 15%);
+    color: #3fb950;
+  }
+  &.no {
+    background: rgb(248 81 73 / 15%);
+    color: #f85149;
+  }
+  &.shown {
+    background: rgb(74 140 255 / 15%);
+    color: #4a8cff;
+  }
+  &.hidden {
+    background: rgb(139 148 158 / 15%);
+    color: #8b949e;
+  }
+}

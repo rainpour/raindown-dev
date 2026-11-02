@@ -8,7 +8,7 @@ published: true
 Put an `endpoint:` directive above a curl snippet and Raindown writes the response in a code block below it, typed by its content type, followed by the date it was fetched:
 
 ````md
-<{ endpoint: :x }>
+<!-- endpoint: :x -->
 
 ```sh
 curl https://httpbin.org/uuid
@@ -20,10 +20,10 @@ curl https://httpbin.org/uuid
 }
 ```
 <!-- raindown:fetched 2026-10-14 -->
-<{ :endpoint }>
+<!-- :endpoint -->
 ````
 
-In a [Raindown file](/docs/raindown-files) you can write `endpoint: :x` bare, which ends after the curl snippet and response, so there's no `<{ :endpoint }>`.
+In a [Raindown file](/docs/raindown-files) you can write `endpoint: :x` bare, which ends after the curl snippet and response, so there's no `<!-- :endpoint -->`. In `<{ endpoint: }>` it only renders, so it never runs.
 
 ## Running requests
 

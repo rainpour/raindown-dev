@@ -54,21 +54,23 @@ raindown init
 
 ## Usage
 
-**Then watch your project:**
+**Then open your project:**
 ```shell
 raindown
 ```
 
-This watches the Markdown files in the project, and writes back to each one as it's saved, like its table of contents and tables. Start it in a folder like `~/dev` and it watches every project inside. To watch one file, run `raindown README.md`.
+This opens the project in the terminal, and watches its Markdown files, writing back to each one as it's saved, like its table of contents and tables.
+
+**To watch without the terminal UI:**
+```shell
+raindown watch
+```
+
+Start it in a folder like `~/dev` and it watches every project inside. To watch one file, run `raindown watch README.md`.
 
 **To render a file to HTML:**
 ```shell
 raindown README.md --html README.html
-```
-
-**To browse the project in the terminal:**
-```shell
-raindown tui
 ```
 
 See the [CLI](/docs/cli) for more.
@@ -80,24 +82,22 @@ Add a table of contents to any Markdown file:
 ```md
 # Notes
 
-<{ toc: }>
-<{ :toc }>
+<!-- toc: -->
+<!-- :toc -->
 
 ## Setup
 ```
 
-Save it and Raindown writes the table of contents into the Markdown between the two tags, so people and agents reading the file see it too:
+Save it and Raindown writes the table of contents into the Markdown between the two tags, so people and agents reading the file see it too. The tags are HTML comments, so on GitHub only the list shows:
 
 ```md
-<{ toc: }>
-
+<!-- toc: -->
 - [Notes](#notes)
   - [Setup](#setup)
-
-<{ :toc }>
+<!-- :toc -->
 ```
 
-For the HTML alone, without writing into the file, use `<{ :toc }>` by itself. See [Table of contents](/docs/table-of-contents).
+For the HTML alone, without writing into the file, use `<{ :toc }>` by itself, in Deerheads. See [Table of contents](/docs/table-of-contents).
 
 ## VS Code extension
 

@@ -22,6 +22,7 @@ class Layout < LowNode
         <!-- TODO: Precompile. -->
         <link rel="stylesheet" href="/components/alerts.css">
         <link rel="stylesheet" href="/components/cards.css">
+        <link rel="stylesheet" href="/components/footer.css">
         <link rel="stylesheet" href="/components/sidebar/sidebar.css">
         <script src="/components/sidebar/sidebar.js" defer></script>
         <link rel="stylesheet" href="/components/toc/toc.css">
@@ -64,7 +65,7 @@ class Layout < LowNode
             <nav id="main-menu">
               <ul>
                 <li><a href="/docs/getting-started"><i class="bi bi-book"></i>{"Docs"}</a></li>
-                <li><a href="https://github.com/raindeer-rb/raindown"><i class="bi bi-github"></i> {"Source"}</a></li>
+                <li><a href="https://github.com/rainpour/raindown"><i class="bi bi-github"></i> {"Source"}</a></li>
               </ul>
             </nav>
           </div>
@@ -77,11 +78,8 @@ class Layout < LowNode
         <footer>
           <div class="container">
             <ul>
-              <li><a href="https://raindeer.dev">{"Raindeer"}</a></li>
-              <li><a href="https://reddit.com/r/raindeer">{"Reddit"}</a></li>
-              <li><a href="https://discord.gg/UBex4JQgnX">{"Discord"}</a></li>
-              <li><a href="https://www.rubyforum.org/tag/raindeer/97">{"Forum"}</a></li>
-              <li><a href="https://github.com/raindeer-rb/raindown">{"GitHub"}</a></li>
+              <li><a href="/docs/getting-started"><i class="bi bi-download"></i>{"Downloads"}</a></li>
+              <li><a href="https://github.com/rainpour/raindown"><i class="bi bi-github"></i>{"GitHub"}</a></li>
             </ul>
           </div>
         </footer>

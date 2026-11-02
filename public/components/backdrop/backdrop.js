@@ -53,15 +53,17 @@ function hslToRgb(hue, saturation, lightness) {
   return [channel(0), channel(8), channel(4)];
 }
 
+// One pixel per square on a small canvas, then scaled by a whole number of device pixels onto the backdrop,
+// so every square is the same size even when the screen's pixel ratio is fractional.
 function drawBackdrop() {
-  // One canvas pixel per square, scaled up by the browser.
-  const width = Math.ceil(backdrop.clientWidth / SQUARE);
-  const height = Math.ceil(backdrop.clientHeight / SQUARE);
-  backdrop.width = width;
-  backdrop.height = height;
+  const block = Math.max(1, Math.round(SQUARE * window.devicePixelRatio));
+  backdrop.width = Math.round(backdrop.clientWidth * window.devicePixelRatio);
+  backdrop.height = Math.round(backdrop.clientHeight * window.devicePixelRatio);
+  const width = Math.ceil(backdrop.width / block);
+  const height = Math.ceil(backdrop.height / block);
 
-  const context = backdrop.getContext('2d');
-  const image = context.createImageData(width, height);
+  const squares = new OffscreenCanvas(width, height);
+  const image = squares.getContext('2d').createImageData(width, height);
 
   for (let y = 0; y < height; y++) {
     // Nearly solid until the lower rows, then crumbling to no squares in the bottom row.
@@ -83,11 +85,18 @@ function drawBackdrop() {
     }
   }
 
-  context.putImageData(image, 0, 0);
+  squares.getContext('2d').putImageData(image, 0, 0);
+  const context = backdrop.getContext('2d');
+  context.imageSmoothingEnabled = false;
+  context.drawImage(squares, 0, 0, width * block, height * block);
 }
 
+// Mobile browsers fire resize as the address bar slides, so only redraw when the width changes.
 let frame;
+let drawnWidth = backdrop.clientWidth;
 window.addEventListener('resize', () => {
+  if (backdrop.clientWidth === drawnWidth) return;
+  drawnWidth = backdrop.clientWidth;
   cancelAnimationFrame(frame);
   frame = requestAnimationFrame(drawBackdrop);
 });

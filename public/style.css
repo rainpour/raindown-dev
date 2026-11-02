@@ -85,12 +85,11 @@ ul.cons {
   }
 }
 
-/* 1px squares drawn by backdrop.js, crumbling to nothing at the bottom so they meet the page's background colour. */
+/* 2px squares drawn by backdrop.js, crumbling to nothing at the bottom so they meet the page's background colour. */
 #background .backdrop {
   display: block;
   width: 100%;
   height: 100%;
-  image-rendering: pixelated;
 
   .section-pages & {
     mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);

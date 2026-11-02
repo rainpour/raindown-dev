@@ -10,6 +10,7 @@ class HomeNode < LowNode
     @examples = Examples.all
     @alternatives = Examples.all(Examples::ALTERNATIVES)
     @syntax = Examples.syntax
+    @screens = Screens.all
   end
 
   def render(event:)
@@ -70,12 +71,24 @@ class HomeNode < LowNode
         </div>
       </section>
 
+      <section id="terminal">
+        <h2>{"Terminal UI"}</h2>
+
+        <p class="lead">
+          {"Run"} <code>raindown</code> {"to browse a project, and watch it write back as you save."}
+        </p>
+
+        <{ TerminalTabs screens=@screens }>
+      </section>
+
       <section id="objective">
         <p class="kicker"><i class="bi bi-incognito"></i>{"Secret objective"}</p>
         <p>{"To make programming fun again... AI is here but we can write the guard rails and specs and schemas and get to code again... okay it's a templating language but we're so close! The tapping of the keys, the joy of syntax, the connections between files, it's all there, maybe we can live again?"}</p>
       </section>
 
       <link rel="stylesheet" href="/components/examples/examples.css">
+      <link rel="stylesheet" href="/components/terminal/terminal.css">
+      <script src="/components/terminal/terminal.js" defer></script>
     <{ :Layout }>
   end
 end

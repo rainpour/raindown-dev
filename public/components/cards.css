@@ -14,6 +14,12 @@
     box-shadow: 0 12px 32px rgb(0 0 0 / 35%);
     color: #c2c7d3;
 
+    /* A screenshot in a card, like the terminal UI's, with corners like the card's. */
+    img {
+      display: block;
+      border-radius: 6px;
+    }
+
     /*
     &:nth-child(1) { border-left-color: rgb(1, 170, 255); }
     &:nth-child(2) { border-left-color: #f96746; }

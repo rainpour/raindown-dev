@@ -31,11 +31,11 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 
 ## Commands
 
-| Command                   | Description                                                                                                         |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `raindown [PATH]`         | Browse a project's files and outlines in the [terminal UI](#terminal-ui), watching them (default: the current directory) |
-| `raindown watch [PATH]`   | Watch a file, or the projects in a directory, without the terminal UI (default: the current directory)              |
-| `raindown init [DIR]`     | Create a `.raindown` folder for the project's [config](/docs/config) and [nodes](/docs/nodes)                       |
+| Command                 | Description                                                                                                              |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `raindown [PATH]`       | Browse a project's files and outlines in the [terminal UI](#terminal-ui), watching them (default: the current directory) |
+| `raindown watch [PATH]` | Watch a file, or the projects in a directory, without the terminal UI (default: the current directory)                   |
+| `raindown init [DIR]`   | Create a `.raindown` folder for the project's [config](/docs/config) and [components](/docs/components)                  |
 
 ## Options
 
@@ -44,7 +44,8 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 | `--html [OUTPUT]` | Render the file to HTML once, writing to `OUTPUT` or else printing to stdout                           |
 | `--stdin`         | Render Markdown from stdin once, without writing back to the file. Add `--html OUTPUT` to write a file |
 | `--bare`          | Allow [bare directives](/docs/raindown-files) like `toc:` in Markdown files                            |
-| `-x`, `--execute` | Run [endpoint](/docs/endpoints) curl snippets that have no output yet                                  |
+| `-x`, `--execute` | Run [endpoint](/docs/endpoints) curl snippets that have no output yet. Only use it on files you trust  |
+| `--env NAME`      | Fill endpoint snippets from the `NAME` [environment](/docs/endpoints#environments)                     |
 | `-h`, `--help`    | Show the usage                                                                                         |
 | `-v`, `--version` | Show the version                                                                                       |
 
@@ -54,7 +55,7 @@ Set `RAINDOWN_DEBUG=1` to show where an error happened.
 
 Watching a directory watches each project in it, a folder with a `.raindown` folder, and the Markdown files below it, skipping hidden folders and ones like `node_modules` and `build`. So you can start `raindown watch` once in a folder like `~/dev` and it watches every Raindown project inside.
 
-Each project's nodes load in a process of their own, so two projects can have nodes of the same name, and saving one of a project's nodes reloads them. Files are written back as they're saved, not all at once when watching starts.
+Each project's components load in a process of their own, so two projects can have components of the same name, and saving one of a project's components reloads them. Files are written back as they're saved, not all at once when watching starts.
 
 Watching only writes back to the Markdown. To render HTML, use `--html`.
 
@@ -73,7 +74,7 @@ Unless it reads from stdin, Raindown writes back to the file it watches or rende
                │   ## Charts
                │     chart: 'data/downloads.csv'      [+7]
                │   ## Endpoints
-               │     endpoint: :x               [+6] [Run]
+               │     endpoint:                  [+6] [Run]
  Tab Pane  Enter Open  x Run  e Edit  w Write back  r Reload  q Quit
 ```
 

@@ -8,5 +8,5 @@ schema: 'User'
   name: String
   age: Integer
 
-endpoint: :x schema: 'User'
+endpoint: schema: 'User'
 ```

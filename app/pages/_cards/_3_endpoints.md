@@ -4,7 +4,7 @@ summary: Run curl snippets and keep their responses
 ---
 
 ````md
-endpoint: :x
+endpoint:
 
 ```sh
 curl https://httpbin.org/uuid

@@ -1,5 +1,5 @@
 ---
-title: Raindown Files
+title: File Types
 published: true
 ---
 
@@ -12,29 +12,6 @@ Raindown is a superset of Markdown. Give a file the `.rd` or `.raindown` extensi
 
 :toc
 ```
-
-## Bare directives
-
-Bare directives write their output back into the file, and show in bold in the HTML. They have no end tags, so a bare block, like `toc:`, holds the Markdown straight below it, up to the next blank line:
-
-```
-toc:
-- [Notes](#notes)
-```
-
-When its output needs blank lines, put it in HTML comments with an end tag instead, `<!-- toc: -->` and `<!-- :toc -->`, which works in `.md` and `.rd`, and hides it in the HTML.
-
-Template directives, like `if:` and `for:`, are never bare, and always sit in `<{ }>`:
-
-```
-<{ if: draft }>
-This is a draft.
-
-It has two paragraphs.
-<{ :if }>
-```
-
-Directives in prose or code are left as text.
 
 ## Markdown files
 

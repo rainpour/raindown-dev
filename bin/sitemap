@@ -8,7 +8,7 @@ require 'erb'
 SITE_URL = 'https://raindown.dev'
 
 build_path = File.expand_path('../build', __dir__)
-# Pages are exported as "docs/nodes.html", which is served at "/docs/nodes".
+# Pages are exported as "docs/components.html", which is served at "/docs/components".
 files = Dir.glob('**/*.html', base: build_path) - ['404.html']
 paths = files.map { |file| file == 'index.html' ? '/' : "/#{file.delete_suffix('.html')}" }
 

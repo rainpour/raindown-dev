@@ -3,7 +3,7 @@ title: Config
 published: true
 ---
 
-A project can keep settings in `config.yml` in its [`.raindown`](/docs/nodes) folder.
+A project can keep settings in `config.yml` in its [`.raindown`](/docs/components) folder.
 
 ## Highlighting code
 

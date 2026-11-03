@@ -38,4 +38,4 @@
 </table>
 
 1. Bare directives work in [Raindown files](/docs/raindown-files) (`.rd`) and in Markdown files (`.md`) with `raindown: true` front matter or `--bare` via the CLI.
-2. All directive types can output custom HTML or Markdown that is rendered to HTML, it's up to you to choose per component. See [Nodes](/docs/nodes)
+2. All directive types can output custom HTML or Markdown that is rendered to HTML, it's up to you to choose per component. See [Components](/docs/components)

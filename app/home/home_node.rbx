@@ -88,7 +88,10 @@ class HomeNode < LowNode
 
       <link rel="stylesheet" href="/components/examples/examples.css">
       <link rel="stylesheet" href="/components/terminal/terminal.css">
+      <script src="/components/tabs/tabs.js" defer></script>
       <script src="/components/terminal/terminal.js" defer></script>
+      <link rel="stylesheet" href="/components/code-tabs/code-tabs.css">
+      <script src="/components/code-tabs/code-tabs.js" defer></script>
     <{ :Layout }>
   end
 end

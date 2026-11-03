@@ -27,11 +27,19 @@
     }
   }
 
+  /* Once a tab is chosen the screens stack in one place, and hidden ones stay laid out rather than display: none, so
+     their lazy images load together as the tabs come into view instead of flickering in when chosen. */
+  &:has(.screen[hidden]) {
+    display: grid;
+  }
+
   .screen {
+    grid-area: 2 / 1;
     margin: 0;
 
     &[hidden] {
-      display: none;
+      display: block;
+      visibility: hidden;
     }
 
     /* No wider than the screenshots are, so they stay sharp. */

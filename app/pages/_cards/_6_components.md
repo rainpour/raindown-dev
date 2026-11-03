@@ -1,13 +1,23 @@
 ---
 title: Custom Components
-summary: Extend component directives with your own custom code
+summary: Create components with custom output
 ---
+
+<div class="code-tabs">
 
 ```ruby
 class Changelog < LowNode
   def replace = "- **1.2.0** ..."
 end
 ```
+
+```js
+export class Changelog {
+  replace() { return "- **1.2.0** ..." }
+}
+```
+
+</div>
 
 Use with:
 ```md

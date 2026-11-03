@@ -1,0 +1,29 @@
+/* Code blocks in other languages, like Ruby and JavaScript, chosen by tabs above them. */
+.code-tabs {
+  .tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+
+    button {
+      width: auto;
+      margin: 0;
+      padding: 0.2rem 0.75rem;
+      border: 1px solid #2c3142;
+      border-radius: 999px;
+      background: transparent;
+      color: #8891a5;
+      font-size: 0.8rem;
+
+      &[aria-selected='true'] {
+        border-color: #4a8cff;
+        background: rgb(74 140 255 / 15%);
+        color: #e6e8ef;
+      }
+    }
+  }
+
+  pre[hidden] {
+    display: none;
+  }
+}

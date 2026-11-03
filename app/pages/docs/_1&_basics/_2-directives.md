@@ -7,7 +7,7 @@ published: true
 
 How a directive is written says what it does: bare and comment directives write their output into the file, and `<{ }>` directives only render into the HTML:
 
-| Written as                          | Write-back                        | HTML: directive                         | HTML: output  | GitHub preview: directive               | GitHub preview: output |
+| Syntax                              | Write-back                        | HTML: directive                         | HTML: output  | GitHub preview: directive               | GitHub preview: output |
 | ----------------------------------- | --------------------------------- | --------------------------------------- | ------------- | --------------------------------------- | ---------------------- |
 | Bare `name:`                        | <span class="pill yes">Yes</span> | <span class="pill shown">Bold</span>    | Markdown/HTML | Raw text `name:`                        | Rendered Markdown      |
 | `<!-- name: -->` … `<!-- :name -->` | <span class="pill yes">Yes</span> | <span class="pill hidden">Hidden</span> | Markdown/HTML | <span class="pill hidden">Hidden</span> | Rendered Markdown      |

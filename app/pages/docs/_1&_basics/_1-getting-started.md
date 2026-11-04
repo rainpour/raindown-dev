@@ -7,7 +7,9 @@ published: true
 
 ## Installation
 
-**Download a standalone binary** with Ruby bundled inside (about 120–180MB):
+### Binary
+
+Download a standalone binary:
 
 | OS                                            | x86_64                                                                                                | ARM64                                                                                               |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
@@ -23,9 +25,12 @@ mv raindown-* /usr/local/bin/raindown
 ```
 
 **Alpine:**
-The musl binaries need `libgcc` and ncurses, which bare Alpine doesn't include (`apk add libgcc ncurses-libs`). The other Linux binaries use the system's ncurses, which most distros include.
+The musl binaries need `libgcc` and ncurses, which bare Alpine doesn't include:
+```
+apk add libgcc ncurses-libs
+```
 
-**Ruby:**
+### Gem
 
 If you have Ruby installed on your system then you can just run:
 ```shell

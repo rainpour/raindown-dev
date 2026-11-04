@@ -36,6 +36,7 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 | `raindown [PATH]`       | Browse a project's files and outlines in the [terminal UI](#terminal-ui), watching them (default: the current directory) |
 | `raindown watch [PATH]` | Watch a file, or the projects in a directory, without the terminal UI (default: the current directory)                   |
 | `raindown init [DIR]`   | Create a `.raindown` folder for the project's [config](/docs/config) and [components](/docs/components)                  |
+| `raindown server`       | Keep Raindown loaded for an editor, answering JSON requests on stdin, as the [editor server](#editor-server)             |
 
 ## Options
 
@@ -62,6 +63,18 @@ Watching only writes back to the Markdown. To render HTML, use `--html`.
 ## Writing back
 
 Unless it reads from stdin, Raindown writes back to the file it watches or renders: content directives that are bare or in HTML comments, like `toc:` and `<!-- files: -->`, fill in their Markdown, endpoints write their responses, and tables are aligned. Directives in `<{ }>` only render, so they write nothing.
+
+## Editor server
+
+Editors keep Raindown loaded with `raindown server`, so a render doesn't start Ruby again each time: the first takes about a second, and the ones after it a few milliseconds. It says it's ready, then answers one JSON request a line on stdin, in order, on stdout:
+
+```
+{"ready":true,"version":"0.10.0"}
+{"id":1,"path":"/notes/a.md","markdown":"# A\n\n<!-- toc: -->\n<!-- :toc -->\n","rewrite":true}
+{"id":1,"output":"# A\n\n<!-- toc: -->\n- [A](#a)\n<!-- :toc -->\n","warnings":[]}
+```
+
+With `"rewrite": true`, it answers like `--stdin --rewrite`, with `"execute": true` like `-x`, and otherwise with HTML, like `--stdin`. `"bare": true` is like `--bare`. An error is answered as `{"id":1,"error":"raindown: /notes/a.md: ..."}`. Each project renders in a process of its own, which starts again when a file in its `.raindown` folder changes, so its components, config and schemas are never stale. On Windows, which can't fork, start the server again after changing them.
 
 ## Terminal UI
 

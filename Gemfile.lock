@@ -57,7 +57,7 @@ PATH
 PATH
   remote: ../lowtype
   specs:
-    lowtype (1.6.2)
+    lowtype (1.7.0)
       dirload
       expressions (~> 0.1)
       lowkey (>= 0.7.1)
@@ -104,7 +104,7 @@ PATH
 PATH
   remote: ../raindown
   specs:
-    raindown (0.10.0)
+    raindown (0.11.0)
       antlers (>= 1.4.0)
       commonmarker
       csv
@@ -113,6 +113,7 @@ PATH
       listen
       lowkey (>= 0.7.0)
       lownode
+      lowtype (>= 1.7)
       plugs
       rouge (~> 5.1)
       trees (>= 0.4.0)
@@ -352,7 +353,7 @@ CHECKSUMS
   lowkey (0.7.1)
   lowloop (0.8.4)
   lownode (0.5.6)
-  lowtype (1.6.2)
+  lowtype (1.7.0)
   observers (1.1.0)
   openssl (4.0.2) sha256=1037ad2868ae58df9ad917891c0c0f9815a1172f6846d4bcdd508e4c2ee747c2
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
@@ -372,7 +373,7 @@ CHECKSUMS
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
   raindeer (1.0.6)
-  raindown (0.10.0)
+  raindown (0.11.0)
   rake (13.4.2) sha256=cb825b2bd5f1f8e91ca37bddb4b9aaf345551b4731da62949be002fa89283701
   rb-fsevent (0.11.2) sha256=43900b972e7301d6570f64b850a5aa67833ee7d87b458ee92805d56b7318aefe
   rb-inotify (0.11.1) sha256=a0a700441239b0ff18eb65e3866236cd78613d6b9f78fea1f9ac47a85e47be6e

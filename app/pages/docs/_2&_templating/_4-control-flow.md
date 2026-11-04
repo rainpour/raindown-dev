@@ -23,7 +23,7 @@ Loop over a hash by its keys and values, like `links` in the front matter:
 ---
 links:
   docs: https://raindown.dev
-  code: https://github.com/raindeer-rb/raindown
+  code: https://github.com/rainpour/raindown
 ---
 
 <{ for: name, url in: links }>

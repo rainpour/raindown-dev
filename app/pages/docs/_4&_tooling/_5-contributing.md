@@ -5,7 +5,7 @@ published: true
 
 <{ :toc }>
 
-Bug reports and pull requests are welcome on [GitHub](https://github.com/raindeer-rb/raindown).
+Bug reports and pull requests are welcome on [GitHub](https://github.com/rainpour/raindown).
 
 ## Setup
 

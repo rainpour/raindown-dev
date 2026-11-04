@@ -17,6 +17,11 @@ export class Changelog {
 }
 ```
 
+```md
+<!-- .raindown/Changelog.md -->
+- **1.2.0** ...
+```
+
 </div>
 
 Use with:

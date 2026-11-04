@@ -19,7 +19,7 @@ class Version < LowNode
       <{ if: @version }>
         <li>v{@version}</li>
       <{ :if }>
-      <li><a href="https://github.com/raindeer-rb/raindown/releases">{"Releases"}</a></li>
+      <li><a href="https://github.com/rainpour/raindown/releases">{"Releases"}</a></li>
     </ul>
   end
 end

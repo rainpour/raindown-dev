@@ -41,7 +41,7 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 
 | Option            | Description                                                                                            |
 | ----------------- | ------------------------------------------------------------------------------------------------------ |
-| `--html [OUTPUT]` | Render the file to HTML once, writing to `OUTPUT` or else printing to stdout                           |
+| `--html [OUTPUT]` | Render the file to HTML once, writing to `OUTPUT`, or to stdout without one or with `-`                |
 | `--stdin`         | Render Markdown from stdin once, without writing back to the file. Add `--html OUTPUT` to write a file |
 | `--bare`          | Allow [bare directives](/docs/raindown-files) like `toc:` in Markdown files                            |
 | `-x`, `--execute` | Run [endpoint](/docs/endpoints) curl snippets that have no output yet. Only use it on files you trust  |

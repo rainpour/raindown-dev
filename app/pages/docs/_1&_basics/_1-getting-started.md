@@ -9,12 +9,12 @@ published: true
 
 **Download a standalone binary** with Ruby bundled inside (about 120–180MB):
 
-| OS                                            | x86_64                                                                                                   | ARM64                                                                                                  |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| <i class="bi bi-apple"></i> macOS             | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-macos-x86_64)       | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-macos-arm64)      |
-| <i class="bi bi-tux"></i> Linux               | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-linux-x86_64)       | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-linux-arm64)      |
-| <i class="bi bi-tux"></i> Linux (musl/Alpine) | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-linux-musl-x86_64)  | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-linux-musl-arm64) |
-| <i class="bi bi-windows"></i> Windows         | [Download](https://github.com/raindeer-rb/raindown/releases/latest/download/raindown-windows-x86_64.exe) | —                                                                                                      |
+| OS                                            | x86_64                                                                                                | ARM64                                                                                               |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| <i class="bi bi-apple"></i> macOS             | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-macos-x86_64)       | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-macos-arm64)      |
+| <i class="bi bi-tux"></i> Linux               | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-x86_64)       | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-arm64)      |
+| <i class="bi bi-tux"></i> Linux (musl/Alpine) | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-musl-x86_64)  | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-musl-arm64) |
+| <i class="bi bi-windows"></i> Windows         | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-windows-x86_64.exe) | —                                                                                                   |
 
 On macOS and Linux, make it executable and move it onto your `PATH`:
 ```shell

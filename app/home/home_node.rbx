@@ -21,8 +21,8 @@ class HomeNode < LowNode
 
       <div id="overview">
         <p>
-          {"A Markdown superset for AI, APIs, Docs... and humans."}
-          {"Markdown that keeps itself up to date, so your docs, READMEs and agent files never go stale."}
+          {"A Markdown superset where data stays current and complete."}<br />
+          {"Use for AI, APIs, Docs, READMEs and personal organisation."}
         </p>
         <p><strong>{"Stay sane out there."}</strong></p>
 

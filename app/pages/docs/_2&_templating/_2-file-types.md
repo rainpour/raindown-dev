@@ -13,6 +13,8 @@ Raindown is a superset of Markdown. Give a file the `.rd` or `.raindown` extensi
 :toc
 ```
 
+Bare directives, like ones in comments, read like prose, so an unquoted word is text, like `files: folder: notes`, and only a word in braces is a variable, like `chart: {stats}`.
+
 ## Markdown files
 
 Markdown files can opt in to bare directives too, with `raindown: true` in their front matter:

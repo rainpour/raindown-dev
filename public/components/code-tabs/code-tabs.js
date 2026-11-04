@@ -1,6 +1,6 @@
 // Shows one code block of a ".code-tabs" at a time, chosen by tabs named after their languages, like Ruby and JavaScript.
 // Without JavaScript, every code block shows, one after the other.
-const LANGUAGES = { ruby: 'Ruby', js: 'JavaScript' };
+const LANGUAGES = { ruby: 'Ruby', js: 'JavaScript', md: 'Markdown' };
 
 document.querySelectorAll('.code-tabs').forEach((codeTabs) => {
   const blocks = [...codeTabs.querySelectorAll('pre')];

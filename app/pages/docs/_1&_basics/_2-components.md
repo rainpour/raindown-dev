@@ -8,7 +8,7 @@ published: true
 > [!NOTE]
 > A node is how a directive is built and a component is how it's rendered. Nodes that start with a capital letter, like `Changelog:`, are components. Nodes like `if:` are templating.
 
-Components are your own directives, written in Ruby or JavaScript, that write Markdown into the file with `replace`, and render HTML into the page with `render`.
+Components are your own directives, written in Ruby, JavaScript or plain Markdown, that write Markdown into the file with `replace`, and render HTML into the page with `render`.
 
 Put them in a `.raindown` folder beside your files, or in a folder above them, and Raindown loads them automatically.
 
@@ -69,6 +69,25 @@ It's used like any component, like `<!-- Changelog: limit=3 -->`. Its props come
 - What they log goes to stderr.
 - They can't subclass Raindown's own nodes, like `Chart`, so they can't replace `toc:`, `files:` or `chart:`.
 
+## Markdown components
+
+A Markdown file in `.raindown` named like a component, like `BookCard.md` or `BookCard.rd`, is a component with no code. Its props are its variables, and its front matter is their defaults:
+
+`````md
+---
+rating: 0
+---
+
+**{title}** · {rating}/5
+`````
+
+Then `BookCard: title: The Dispossessed rating: 5` writes `**The Dispossessed** · 5/5` below it.
+
+- A value before the props, like `'Dune'` in `BookCard: 'Dune'`, is `{value}`.
+- [Control flow](/docs/control-flow), like `<{ if: }>` and `<{ for: }>`, works in it.
+- Raindown reads the file each time it writes the component, so a change shows on the next render.
+- A Ruby or JavaScript component of the same name is used instead.
+
 ## Component blocks
 
 A component block names the component and its props, and Raindown writes the component's Markdown into it whenever the file is rendered:
@@ -92,7 +111,7 @@ A self-closing `<{ :Changelog }>`, or a bare `:Changelog`, renders the component
 
 ## Props
 
-Props can be quoted text, numbers, `true`, `false` or [variables](/docs/variables) like `author.name`, written `limit=3` or `limit: 3`. A variable is the data it holds, so a list stays a list.
+Props can be quoted text, numbers, `true`, `false` or [variables](/docs/variables) like `author.name`, written `limit=3` or `limit: 3`. Bare or in comments, a word is text, like `folder: notes`, and a variable is in braces, like `{author.name}`, while in `<{ }>` a word is a variable. Like YAML, unquoted text after `name:` runs up to the next prop, so `title: Hello world limit: 3` has two, while after `name=` it's one word. Quote text with a word and colon inside, like `title: 'Read this: now'`, and words that read as values, like `'1.10'` or `'true'`. Quoted text means the same in every way a directive's written. A variable is the data it holds, so a list stays a list.
 
 A value before the props, like `'data.csv'` in `chart: 'data.csv' format: 'columns'`, is passed to the component's `initialize`, or its constructor, as its argument.
 

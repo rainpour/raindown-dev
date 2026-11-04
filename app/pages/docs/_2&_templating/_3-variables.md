@@ -19,6 +19,6 @@ draft: false
 {author.name}
 ```
 
-Unknown variables render nothing, and variables in code are left as text.
+Unknown variables render nothing, and variables in code are left as text. `<{ key }>` doesn't escape HTML, so only use it for values you trust.
 
 Use variables in [loops and conditions](/docs/control-flow), and as [component props](/docs/components#props).

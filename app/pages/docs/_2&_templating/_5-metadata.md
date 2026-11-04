@@ -75,3 +75,13 @@ For example, this list of the templating pages is a `list:` block:
 <{ list: page folder: 'templating' }>
 - [{page.title}]({page.path})
 <{ :list }>
+
+## Wikilinks
+
+Like in [Obsidian](https://obsidian.md), `[[Reading list]]` links to the file named `Reading list.md`, wherever it is in the project, whatever its case:
+
+- **`[[Reading list#To read]]`** links to a heading.
+- **`[[Reading list|books]]`** changes the text.
+- **`[[notes/Reading list]]`** picks one of two files with the same name.
+
+They render as links, by the file's path like `files:`, while the file keeps them as you wrote them, so Obsidian still reads it. Ones that name no file, embeds like `![[photo.png]]`, and ones in code are left as they are.

@@ -180,3 +180,11 @@ With `"rewrite": true`, it answers like `--stdin --rewrite`, with `"execute": tr
 | `q`                | Quit                                                                                          |
 
 The mouse works too: click a row to select it, and click a button like `[Run]` or `[+7]` to press it. The outline updates when the file changes, like when you save it in your editor, or when a `raindown watch` in another terminal writes back to it.
+
+### Dashboard
+
+The terminal UI opens on the Dashboard, at the top of the files, or press `d`. It shows every [chart](/docs/chart) and stat in the project, each in a card under its file and heading, drawn again from their data every few seconds, so editing a CSV file updates its chart without a save. Enter, or clicking a card's title, opens the chart's file on its directive.
+
+Below the files is every [endpoint](/docs/endpoint) in the project, by its request, like `GET httpbin.org/uuid`. Enter or a click opens one with its response, and `x`, or clicking **Run**, runs it.
+
+On a folder of projects, like `raindown ~/dev`, projects inside it are marked 🌧 in the files, with their own charts. Click the path in the header, or press `p`, to narrow the files and the Dashboard to one project.

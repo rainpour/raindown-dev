@@ -10,6 +10,8 @@ published: true
 
 Components are your own directives, written in Ruby, JavaScript or plain Markdown, that write Markdown into the file with `replace`, and render HTML into the page with `render`.
 
+How you write one says which it does. Bare or in comments, like `Changelog:` or `<!-- Changelog: -->`, it writes back: its `replace` writes into the file. In Deerheads, like `<{ Changelog: }>` … `<{ :Changelog }>` or `<{ :Changelog }>`, it's written in: only its `render` is called, which gets the Markdown between its tags as `slot:`, and nothing is written into the file. A component with only `render`, like a `Layout`, can only be written in, and one with only `replace` raises in Deerheads.
+
 Put them in a `.raindown` folder beside your files, or in a folder above them, and Raindown loads them automatically.
 
 ## Custom Components
@@ -30,14 +32,14 @@ class Changelog < LowNode
     @releases.map { |release| "- **#{release.version}** #{release.summary}" }.join("\n")
   end
 
-  # Rendered into the HTML. Without it, the HTML of the Markdown above is rendered.
+  # Rendered into the HTML, and all that renders in Deerheads. Without it, the HTML of the Markdown above is rendered.
   def render
     "<section class=\"changelog\">...</section>"
   end
 end
 ```
 
-`replace` and `render` can also take the keywords `document:` (the Markdown being rendered), `metadata:` and `bare:`, and get the ones they ask for.
+`replace` and `render` can also take the keywords `document:` (the Markdown being rendered), `metadata:` and `bare:`, and get the ones they ask for. `render` can also take `slot:`, the HTML of the Markdown between its tags in Deerheads.
 
 #### Overriding Core Nodes
 
@@ -61,7 +63,7 @@ export class Changelog {
     return this.releases.map((release) => `- **${release.version}** ${release.summary}`).join("\n")
   }
 
-  // Rendered into the HTML. Without it, the HTML of the Markdown above is rendered.
+  // Rendered into the HTML, and all that renders in Deerheads. Without it, the HTML of the Markdown above is rendered.
   render({ html }) {
     return `<section class="changelog">...</section>`
   }

@@ -74,7 +74,7 @@ When its output needs blank lines, put it in HTML comments with an end tag inste
 
 <{ UseCase use_case='template' }>
 
-Great for control flow nodes like `if:` and `for:` that need closing tags and only care about HTML output. You would typically use Deerheads inside a [custom component](/docs/components#custom-components) or for [Static Site Generation](/docs/static).
+Great for control flow nodes like `if:` and `for:` that need closing tags and only care about HTML output. A node in Deerheads is written in: Raindown only calls its `render`, never its `replace`, and the Markdown between its tags is its input, as `slot:`. You would typically use Deerheads inside a [custom component](/docs/components#custom-components) or for [Static Site Generation](/docs/static).
 
 #### Variables
 

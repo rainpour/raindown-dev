@@ -85,27 +85,25 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 
 ## Your first directive
 
-Add a table of contents to any Markdown file:
+Add a table of contents to a [Raindown file](/docs/file-types), like `notes.rd`:
 
-```md
+```
 # Notes
 
-<!-- toc: -->
-<!-- :toc -->
+toc:
 
 ## Setup
 ```
 
-Save it and Raindown writes the table of contents into the Markdown between the two tags, so people and agents reading the file see it too. The tags are HTML comments, so on GitHub only the list shows:
+Save it and Raindown writes the table of contents below `toc:`, so people and agents reading the file see it too:
 
-```md
-<!-- toc: -->
+```
+toc:
 - [Notes](#notes)
   - [Setup](#setup)
-<!-- :toc -->
 ```
 
-For the HTML alone, without writing into the file, use `<{ :toc }>` by itself, in Deerheads. See [Table of contents](/docs/toc).
+In a `.md` file, add `raindown: true` to its front matter, or write it in HTML comments, `<!-- toc: -->` and `<!-- :toc -->`, which GitHub hides. For the HTML alone, without writing into the file, use `<{ :toc }>` by itself, in Deerheads. See [Table of contents](/docs/toc).
 
 ## Commands
 

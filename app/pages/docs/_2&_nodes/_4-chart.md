@@ -9,15 +9,14 @@ usecase: content
 
 A `chart:` block draws its data as a chart in block characters, and writes it into the Markdown below it as a code block, redrawn whenever the file is rendered:
 
-````md
-<!-- chart: 'data/downloads.csv' -->
+````
+chart: 'data/downloads.csv'
 ```
 Jan  ██████████████████████▌                  1,240
 Feb  ███████████████████████████████████▉     1,980
 Mar  ████████████████████████████████████████ 2,210
 Apr  ███████████████▊                           870
 ```
-<!-- :chart -->
 ````
 
 ## Data
@@ -93,5 +92,5 @@ class Issues < Raindown::Stat
 end
 ```
 
-Then `<!-- Issues: -->` and `<!-- :Issues -->` in a file write it there. An opening tag needs its colon, even without props.
+Then `Issues:` on its own line in a file writes it below. It needs its colon, even without props.
 

@@ -41,7 +41,7 @@ end
 
 #### Overriding Core Nodes
 
-[Table of contents](/docs/toc) and [files](/docs/files) are nodes too, and a project can replace them with its own Ruby `TOC` or `Files` node.
+[Table of contents](/docs/toc), [files](/docs/files), [charts](/docs/chart) and [tables](/docs/table) are nodes too, and a project can replace them with its own Ruby `TOC`, `Files`, `Chart` or `Table` node, like `class Chart < Raindown::Chart`. Endpoints and schemas can't be replaced.
 
 ### JavaScript
 
@@ -68,12 +68,12 @@ export class Changelog {
 }
 ```
 
-It's used like any component, like `<!-- Changelog: limit=3 -->`. Its props come first in the constructor, then the value before them, if any. Its methods get the context as one object, where `metadata` is `{ root, files }`, with each file's front matter and path but not its content.
+It's used like any component, like `Changelog: limit=3`. Its props come first in the constructor, then the value before them, if any. Its methods get the context as one object, where `metadata` is `{ root, files }`, with each file's front matter and path but not its content.
 
 - A Ruby component of the same name is used instead.
 - JavaScript components need [Node.js](https://nodejs.org) 22 or later on your `PATH`, which runs them in one process of their own, and only projects that have them need it.
 - What they log goes to stderr.
-- They can't subclass Raindown's own nodes, like `Chart`, so they can't replace `toc:`, `files:` or `chart:`.
+- They can't subclass Raindown's own nodes, like `Chart`, so they can't replace `toc:`, `files:`, `chart:` or `table:`.
 
 ### Markdown
 

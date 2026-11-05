@@ -30,9 +30,6 @@ The `path` is relative to the project, so the links `files:` writes work in the 
 
 Files are listed by `order`, and separate several folder tags with `&`, like `docs/_1&_basics/getting-started.md`.
 
-> [!TIP]
-> This site's pages live in folders like `docs/_1&_basics`, which puts them in order and in their sidebar group.
-
 ## Filtering
 
 Filter by any of a file's tags, with quoted values, since unquoted ones are front matter keys:

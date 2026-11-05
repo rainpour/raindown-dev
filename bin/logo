@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Writes "public/assets/raindown.svg", the home page's rain cloud as a logo, from the same seeded RainCloud, so the
+# two match block for block. Run it again after changing the cloud.
+
+require_relative '../app/home/rain_cloud'
+
+CELL_WIDTH = 6
+CELL_HEIGHT = 10
+HALF_WIDTH = CELL_WIDTH / 2
+HALF_HEIGHT = CELL_HEIGHT / 2
+RAIN_BLUE = 'hsl(212 100% 70%)'
+
+# Each character as the rectangles it fills in its cell, [x, y, width, height], and its opacity. Rain is drawn wider
+# than a line of text, so it still shows when the logo is small.
+SHAPES = {
+  '█' => [[[0, 0, CELL_WIDTH, CELL_HEIGHT]], 1],
+  '▓' => [[[0, 0, CELL_WIDTH, CELL_HEIGHT]], 0.72],
+  '▀' => [[[0, 0, CELL_WIDTH, HALF_HEIGHT]], 1],
+  '▄' => [[[0, HALF_HEIGHT, CELL_WIDTH, HALF_HEIGHT]], 1],
+  '▌' => [[[0, 0, HALF_WIDTH, CELL_HEIGHT]], 1],
+  '▐' => [[[HALF_WIDTH, 0, HALF_WIDTH, CELL_HEIGHT]], 1],
+  '▚' => [[[0, 0, HALF_WIDTH, HALF_HEIGHT], [HALF_WIDTH, HALF_HEIGHT, HALF_WIDTH, HALF_HEIGHT]], 1],
+  '▞' => [[[HALF_WIDTH, 0, HALF_WIDTH, HALF_HEIGHT], [0, HALF_HEIGHT, HALF_WIDTH, HALF_HEIGHT]], 1],
+  '│' => [[[2, 0, 2, CELL_HEIGHT]], 1],
+  '╎' => [[[2, 0, 2, 4], [2, 5.5, 2, 4]], 1],
+  '┊' => [[[2, 0.5, 2, 1.5], [2, 3, 2, 1.5], [2, 5.5, 2, 1.5], [2, 8, 2, 1.5]], 1],
+  "'" => [[[2, 0, 2, 3.5]], 1],
+  ',' => [[[2, 6, 2, 3.5]], 1]
+}.freeze
+
+# A rectangle of the logo, in its cell's place.
+Rect = Data.define(:x, :y, :width, :height, :fill, :opacity) do
+  def right = x + width
+  def bottom = y + height
+
+  def svg(left)
+    opacity = %( opacity="#{self.opacity}") if self.opacity < 1
+    %(<rect x="#{(x - left).round(1)}" y="#{y.round(1)}" width="#{width}" height="#{height}" fill="#{fill}"#{opacity}/>)
+  end
+end
+
+# An hsl() colour as hex, which every SVG viewer reads.
+def hex_color(hsl)
+  hue, saturation, lightness = hsl.scan(/[\d.]+/).map(&:to_f).zip([1, 100, 100]).map { _1 / _2 }
+  chroma = saturation * [lightness, 1 - lightness].min
+  "##{[0, 8, 4].map { channel(it, hue, lightness, chroma).to_s(16).rjust(2, '0') }.join}"
+end
+
+# Red, green or blue, by its offset round the colour wheel, from 0 to 255.
+def channel(offset, hue, lightness, chroma)
+  k = (offset + (hue / 30)) % 12
+  ((lightness - (chroma * [[k - 3, 9 - k, 1].min, -1].max)) * 255).round
+end
+
+def row_rects(row, top)
+  fade = row.style&.[](/--opacity: ([\d.]+)/, 1)&.to_f || 1
+
+  row.cells.each_with_index.flat_map do |(char, color), column|
+    shapes, opacity = SHAPES[char]
+    next [] unless shapes
+
+    shapes.map do |x, y, width, height|
+      Rect.new(x: (column * CELL_WIDTH) + x, y: top + y, width:, height:, fill: hex_color(color || RAIN_BLUE),
+               opacity: (opacity * fade).round(2))
+    end
+  end
+end
+
+rects = RainCloud.new.rows.each_with_index.flat_map { |row, index| row_rects(row, index * CELL_HEIGHT) }
+left = rects.map(&:x).min
+width = rects.map(&:right).max - left
+height = rects.map(&:bottom).max
+
+path = File.expand_path('../public/assets/raindown.svg', __dir__)
+File.write(path, <<~SVG)
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{width} #{height}" role="img"><title>Raindown</title>#{rects.map { it.svg(left) }.join}</svg>
+SVG
+puts "Wrote #{path}"

@@ -3,7 +3,7 @@ title: Markdown superset
 icon: markdown
 ---
 
-Enable Raindown in your markdown with `raindown: true` or use the `.rd` extension.
+Enable Raindown by default, use the `.rd` extension, or enable per file via front matter:
 
 ```
 ---
@@ -11,4 +11,4 @@ raindown: true
 ---
 ```
 
-Markdown is rendered via Rust so it's fast!
+Markdown is rendered via Rust so it's *fast*.

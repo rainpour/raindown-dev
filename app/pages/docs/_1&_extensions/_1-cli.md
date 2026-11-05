@@ -5,7 +5,61 @@ published: true
 
 <{ :toc }>
 
-The gem ships a `raindown` executable that opens a project in the [terminal UI](#terminal-ui), and watches its Markdown files and writes back to them as they're saved, like their tables of contents, tables and endpoint responses. `raindown watch` does the watching without the terminal UI.
+## Installation
+
+### Binary
+
+Download a standalone binary:
+
+| OS                                            | x86_64                                                                                                | ARM64                                                                                               |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| <i class="bi bi-apple"></i> macOS             | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-macos-x86_64)       | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-macos-arm64)      |
+| <i class="bi bi-tux"></i> Linux               | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-x86_64)       | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-arm64)      |
+| <i class="bi bi-tux"></i> Linux (musl/Alpine) | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-musl-x86_64)  | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-linux-musl-arm64) |
+| <i class="bi bi-windows"></i> Windows         | [Download](https://github.com/rainpour/raindown/releases/latest/download/raindown-windows-x86_64.exe) | —                                                                                                   |
+
+On macOS and Linux, make it executable and move it onto your `PATH`:
+```shell
+chmod +x raindown-*
+mv raindown-* /usr/local/bin/raindown
+```
+
+**Alpine:**
+The musl binaries need `libgcc` and ncurses, which bare Alpine doesn't include:
+```
+apk add libgcc ncurses-libs
+```
+
+### Gem
+
+If you have Ruby installed on your system then you can just run:
+```shell
+gem install raindown
+```
+
+The gem compiles the curses gem, for the [terminal UI](/docs/cli#terminal-ui), so on Linux install ncurses' headers first, like `apt install libncurses-dev` or `apk add ncurses-dev`.
+
+## Updating
+
+Download the binary again from the table above and replace the old one.
+
+If you installed the gem via Ruby then do:
+```shell
+gem update raindown
+```
+
+## Setup
+
+Run `raindown init` in the root of your project to create a `.raindown` folder. It marks the project's root and holds its [config](/docs/config) and your own [components](/docs/components):
+
+```shell
+raindown init
+# Created .raindown/config.yml
+```
+
+## Usage
+
+The `raindown` executable opens a project in the [terminal UI](#terminal-ui), and watches its Markdown files and writes back to them as they're saved, like their tables of contents, tables and endpoint responses. `raindown watch` does the watching without the terminal UI.
 
 ```shell
 # Browse a project's files and their outlines in the terminal, watching them as they're saved:
@@ -29,6 +83,30 @@ cat draft.rd | raindown draft.rd --stdin
 
 With `--stdin`, the file only decides whether bare directives are allowed (by its extension), so it doesn't need to exist yet, and the table of contents and tables aren't written back to it.
 
+## Your first directive
+
+Add a table of contents to any Markdown file:
+
+```md
+# Notes
+
+<!-- toc: -->
+<!-- :toc -->
+
+## Setup
+```
+
+Save it and Raindown writes the table of contents into the Markdown between the two tags, so people and agents reading the file see it too. The tags are HTML comments, so on GitHub only the list shows:
+
+```md
+<!-- toc: -->
+- [Notes](#notes)
+  - [Setup](#setup)
+<!-- :toc -->
+```
+
+For the HTML alone, without writing into the file, use `<{ :toc }>` by itself, in Deerheads. See [Table of contents](/docs/toc).
+
 ## Commands
 
 | Command                 | Description                                                                                                              |
@@ -44,9 +122,9 @@ With `--stdin`, the file only decides whether bare directives are allowed (by it
 | ----------------- | ------------------------------------------------------------------------------------------------------ |
 | `--html [OUTPUT]` | Render the file to HTML once, writing to `OUTPUT`, or to stdout without one or with `-`                |
 | `--stdin`         | Render Markdown from stdin once, without writing back to the file. Add `--html OUTPUT` to write a file |
-| `--bare`          | Allow [bare directives](/docs/raindown-files) like `toc:` in Markdown files                            |
-| `-x`, `--execute` | Run [endpoint](/docs/endpoints) curl snippets that have no output yet. Only use it on files you trust  |
-| `--env NAME`      | Fill endpoint snippets from the `NAME` [environment](/docs/endpoints#environments)                     |
+| `--bare`          | Allow [bare directives](/docs/file-types) like `toc:` in Markdown files                                |
+| `-x`, `--execute` | Run [endpoint](/docs/endpoint) curl snippets that have no output yet. Only use it on files you trust   |
+| `--env NAME`      | Fill endpoint snippets from the `NAME` [environment](/docs/endpoint#environments)                      |
 | `-h`, `--help`    | Show the usage                                                                                         |
 | `-v`, `--version` | Show the version                                                                                       |
 

@@ -9,6 +9,7 @@ class PageRenderer < LowNode
     @path = event.route.path
     @html = page.html
     @title = page.metadata[:title]
+    @use_case = page.metadata[:usecase]
     @published = @html && page.metadata[:published]
   end
 
@@ -19,6 +20,7 @@ class PageRenderer < LowNode
 
         <div id="content">
           <h1>{@title}</h1>
+          <{ UseCase use_case=@use_case }>
 
           <{ @html }>
         </div>

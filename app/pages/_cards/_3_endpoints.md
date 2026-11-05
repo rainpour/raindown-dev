@@ -8,8 +8,7 @@ endpoint:
 ```sh
 curl https://httpbin.org/uuid
 ```
-
-response:
+<!-- response 200 · 142 ms · 2026-10-14 -->
 ```json
 { "uuid": "1eefb9a5-442c-..." }
 ```

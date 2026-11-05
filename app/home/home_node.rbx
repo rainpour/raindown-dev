@@ -27,8 +27,8 @@ class HomeNode < LowNode
         <p><strong>{"Stay sane out there."}</strong></p>
 
         <span class="actions">
-          <a href="/docs/getting-started" role="button"><i class="bi bi-download"></i>{"Download CLI"}</a>
-          <a href="https://github.com/rainpour/raindown-obsidian" role="button" class="outline"><i class="obsidian-icon"></i>{"Obsidian"}</a>
+          <a href="/docs/cli#installation" role="button"><i class="bi bi-download"></i>{"Download CLI"}</a>
+          <a href="/docs/obsidian" role="button" class="outline"><i class="obsidian-icon"></i>{"Obsidian"}</a>
         </span>
 
         <{ Version }>

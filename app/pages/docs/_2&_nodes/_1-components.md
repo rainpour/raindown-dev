@@ -6,15 +6,17 @@ published: true
 <{ :toc }>
 
 > [!NOTE]
-> A node is how a directive is built and a component is how it's rendered. Nodes that start with a capital letter, like `Changelog:`, are components. Nodes like `if:` are templating.
+> A node is how it's built and a component is how it's rendered. They are data and logic that you want to include from another place into your page. Nodes that start with a capital letter like `Changelog:` are always components.
 
 Components are your own directives, written in Ruby, JavaScript or plain Markdown, that write Markdown into the file with `replace`, and render HTML into the page with `render`.
 
 Put them in a `.raindown` folder beside your files, or in a folder above them, and Raindown loads them automatically.
 
-## Ruby components
+## Custom Components
 
-Ruby components are [LowNodes](https://github.com/low-rb/lownode), loaded with [Dirload](https://github.com/low-rb/dirload):
+### Ruby
+
+Ruby components inherit from [LowNode](https://github.com/low-rb/lownode):
 
 ```ruby
 # .raindown/changelog.rb
@@ -37,7 +39,11 @@ end
 
 `replace` and `render` can also take the keywords `document:` (the Markdown being rendered), `metadata:` and `bare:`, and get the ones they ask for.
 
-## JavaScript components
+#### Overriding Core Nodes
+
+[Table of contents](/docs/toc) and [files](/docs/files) are nodes too, and a project can replace them with its own Ruby `TOC` or `Files` node.
+
+### JavaScript
 
 A JavaScript component is a `.js` or `.mjs` file in the same `.raindown` folder that exports a class with `replace`, and optionally `render`:
 
@@ -69,7 +75,7 @@ It's used like any component, like `<!-- Changelog: limit=3 -->`. Its props come
 - What they log goes to stderr.
 - They can't subclass Raindown's own nodes, like `Chart`, so they can't replace `toc:`, `files:` or `chart:`.
 
-## Markdown components
+### Markdown
 
 A Markdown file in `.raindown` named like a component, like `BookCard.md` or `BookCard.rd`, is a component with no code. Its props are its variables, and its front matter is their defaults:
 
@@ -88,27 +94,6 @@ Then `BookCard: title: The Dispossessed rating: 5` writes `**The Dispossessed** 
 - Raindown reads the file each time it writes the component, so a change shows on the next render.
 - A Ruby or JavaScript component of the same name is used instead.
 
-## Component blocks
-
-A component block names the component and its props, and Raindown writes the component's Markdown into it whenever the file is rendered:
-
-```md
-<!-- Changelog: limit=3 -->
-- **1.2.0** Bare directives close themselves
-- **1.1.0** Track fetched dates
-<!-- :Changelog -->
-```
-
-In a [Raindown file](/docs/raindown-files) it can also use bare syntax, with the Markdown straight below it up to the next blank line (a bare block can't write blank lines):
-
-```
-Changelog: limit=3
-- **1.2.0** Bare directives close themselves
-- **1.1.0** Track fetched dates
-```
-
-A self-closing `<{ :Changelog }>`, or a bare `:Changelog`, renders the component into the HTML without writing it into the file, as does a `<{ Changelog: }>` block.
-
 ## Props
 
 Props can be quoted text, numbers, `true`, `false` or [variables](/docs/variables) like `author.name`, written `limit=3` or `limit: 3`. Bare or in comments, a word is text, like `folder: notes`, and a variable is in braces, like `{author.name}`, while in `<{ }>` a word is a variable. Like YAML, unquoted text after `name:` runs up to the next prop, so `title: Hello world limit: 3` has two, while after `name=` it's one word. Quote text with a word and colon inside, like `title: 'Read this: now'`, and words that read as values, like `'1.10'` or `'true'`. Quoted text means the same in every way a directive's written. A variable is the data it holds, so a list stays a list.
@@ -123,7 +108,3 @@ A name only starts a component block when it's a loaded component with a `replac
 
 > [!WARNING]
 > Components run your project's code whenever Raindown writes back to or renders the file.
-
-## Built-in nodes
-
-[Table of contents](/docs/table-of-contents) and [files](/docs/files-and-lists) are nodes too, and a project can replace them with its own Ruby `TOC` or `Files` node.

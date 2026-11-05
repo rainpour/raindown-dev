@@ -148,6 +148,11 @@ main {
     margin-top: 50px;
   }
 
+  /* Holds the sidebar's float, so it doesn't run into the footer on a short page. */
+  .section-pages & {
+    display: flow-root;
+  }
+
   #content {
     overflow: auto;
     display: flex;
@@ -201,4 +206,26 @@ main {
     background: rgb(139 148 158 / 15%);
     color: #8b949e;
   }
+}
+
+/* The header's and the sidebar's link to the page you're on. */
+#main-menu a[aria-current='page'],
+#docsnav a[aria-current='page'] {
+  font-weight: bold;
+}
+
+/* Logos that aren't in Bootstrap Icons, in the text's colour, like Bootstrap's. */
+.obsidian-icon,
+.vscode-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: currentColor;
+  mask: var(--logo) center / contain no-repeat;
+}
+.obsidian-icon {
+  --logo: url(/assets/obsidian.svg);
+}
+.vscode-icon {
+  --logo: url(/assets/vscode.svg);
 }

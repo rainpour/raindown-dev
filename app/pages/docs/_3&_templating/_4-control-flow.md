@@ -5,7 +5,7 @@ published: true
 
 <{ :toc }>
 
-Loops and conditions decide whether the Markdown inside them appears, and how many times, like Liquid or Jinja. They're template directives, so they're always written in `<{ }>`, never bare, and they write nothing into the file.
+Loops and conditions decide whether the Markdown inside them appears, and how many times. They're [template directives](/docs/directives#template), so they're usually written in `<{ }>` and they don't do write-back.
 
 ## Loops
 
@@ -31,7 +31,7 @@ links:
 <{ :for }>
 ```
 
-To loop over your project's files, use a [`list:`](/docs/files-and-lists) block.
+To loop over your project's files, use a [list](/docs/list) or [files](/docs/files) node.
 
 ## Conditions
 

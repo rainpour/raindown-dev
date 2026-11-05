@@ -12,7 +12,7 @@ You can also use Raindown for static site generation. [Raindeer](https://raindee
 Markdown and Raindown files under `app/pages` become pages, and their [folder tags](/docs/metadata) are removed from the URL:
 
 ```
-app/pages/docs/_1&_basics/_1-getting-started.md => /docs/getting-started
+app/pages/docs/_1&_extensions/_1-cli.md => /docs/cli
 ```
 
 Files in underscored folders, like `app/pages/_cards/_fast.md`, have no URL of their own and are only listed by their metadata.
@@ -23,6 +23,6 @@ When Raindeer renders a page, unlike the Raindown CLI:
 
 - It doesn't write back to the file
 - Directives are always hidden in the HTML
-- A file's `path` metadata is its URL path, like `/docs/getting-started`
+- A file's `path` metadata is its URL path, like `/docs/cli`
 
 *So try [Raindeer](https://raindeer.dev) today and get 50% off your first payment of FREE!*

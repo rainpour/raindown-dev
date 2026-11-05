@@ -37,4 +37,4 @@ raindown README.md --bare
 
 ## Syntax highlighting
 
-The [VS Code extension](/docs/extensions) highlights bare directives in `.rd` files, and `<{ }>` directives in Markdown files. Its preview renders bare directives in Markdown files with `raindown: true`, but doesn't highlight them yet.
+The [VS Code extension](/docs/vscode) highlights bare directives in `.rd` files, and `<{ }>` directives in Markdown files. Its preview renders bare directives in Markdown files with `raindown: true`, but doesn't highlight them yet.

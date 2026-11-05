@@ -2,6 +2,7 @@
 title: Table of Contents
 menu: TOC
 published: true
+usecase: content
 ---
 
 <{ :toc }>
@@ -23,7 +24,7 @@ The block needs `<!-- :toc -->` after it. A `<{ toc: }>` block, in Deerheads, on
 
 ## In Raindown files
 
-In a [Raindown file](/docs/raindown-files) it can be a bare `toc:` with the list straight below it, and `:toc` on its own is always the HTML table of contents:
+In a [Raindown file](/docs/file-types) it can be a bare `toc:` with the list straight below it, and `:toc` on its own is always the HTML table of contents:
 
 ```
 toc:

@@ -78,8 +78,10 @@ class Layout < LowNode
         <footer>
           <div class="container">
             <ul>
-              <li><a href="/docs/getting-started"><i class="bi bi-download"></i>{"Downloads"}</a></li>
-              <li><a href="https://github.com/rainpour/raindown"><i class="bi bi-github"></i>{"GitHub"}</a></li>
+              <li><a href="/docs/cli"><i class="bi bi-terminal"></i>{"CLI"}</a></li>
+              <li><a href="/docs/vscode"><i class="vscode-icon"></i>{"VS Code"}</a></li>
+              <li><a href="/docs/obsidian"><i class="obsidian-icon"></i>{"Obsidian"}</a></li>
+              <li><a href="https://github.com/rainpour/raindown"><i class="bi bi-github"></i>{"Source"}</a></li>
             </ul>
           </div>
         </footer>

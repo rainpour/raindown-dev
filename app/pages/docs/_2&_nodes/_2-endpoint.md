@@ -1,29 +1,27 @@
 ---
-title: Endpoints
+title: Endpoint
 published: true
+usecase: content
 ---
 
 <{ :toc }>
 
-Put an `endpoint:` directive above a curl snippet and Raindown writes the response in a code block below it, typed by its content type, followed by the date it was fetched, its status and how long it took:
+Put an `endpoint:` directive above a curl snippet and Raindown writes the response in a code block below it, typed by its content type, after a comment of its status, how long it took and the date it was fetched:
 
 ````md
-<!-- endpoint: -->
-
+endpoint:
 ```sh
 curl https://httpbin.org/uuid
 ```
-
+<!-- response 200 · 142 ms · 2026-10-14 -->
 ```json
 {
   "uuid": "4c9d6a2e-…"
 }
 ```
-<!-- raindown:fetched 2026-10-14 · 200 · 142 ms -->
-<!-- :endpoint -->
 ````
 
-In a [Raindown file](/docs/raindown-files) you can write `endpoint:` bare, which ends after the curl snippet and response, so there's no `<!-- :endpoint -->`. In `<{ endpoint: }>` it only renders, so it never runs.
+Bare, in a [Raindown file](/docs/file-types) (`.rd`), a Markdown file with `raindown: true` front matter, or with `--bare`, it ends at the next blank line, like other bare blocks.
 
 ## Running requests
 
@@ -95,19 +93,15 @@ Values from `environments.local.yml` and `{env.NAME}` are secret: when a respons
 Name an endpoint with `as:` and later snippets in the file can read its response. JSON is read by path, like `{login.token}` or `{users.0.id}`, and any response as a whole, like `{login}`:
 
 `````md
-<!-- endpoint: as: login -->
-
+endpoint: as: login
 ```sh
 curl -d 'user=ada' {base_url}/login
 ```
-<!-- :endpoint -->
 
-<!-- endpoint: -->
-
+endpoint:
 ```sh
 curl -H 'Authorization: Bearer {login.token}' {base_url}/me
 ```
-<!-- :endpoint -->
 `````
 
 With `-x`, endpoints run from the top of the file down, so a login runs before the requests that use its token. Responses are read from the file, so running one endpoint on its own, like from the terminal UI, still uses the responses above it.
@@ -117,12 +111,10 @@ With `-x`, endpoints run from the top of the file down, so a login runs before t
 Like tests in Postman or Bruno, an endpoint can say what its response should be, with `status:` and `schema:`:
 
 `````md
-<!-- endpoint: as: user status: 200 schema: Schema[id: Integer, email: String | nil, tags: Array[String]] -->
-
+endpoint: as: user status: 200 schema: Schema[id: Integer, email: String | nil, tags: Array[String]]
 ```sh
 curl {base_url}/users/1
 ```
-<!-- :endpoint -->
 `````
 
 A schema is a [LowType](https://github.com/low-rb/lowtype) type. `Schema[]` is a hash with named keys, a key whose type allows `nil` may be missing, and keys it doesn't name are allowed. Nest them, like `Schema[address: Schema[city: String]]`, and check lists, like `Array[Schema[id: Integer]]`. Write schemas with `Schema[]`, not `{}`, which reads as a variable. Raindown reads the type without running it, so only types, values, `|` and `[]` on `Array`, `Hash`, `Schema`, `Enum` and `Status` are allowed.
@@ -139,7 +131,7 @@ For a bigger schema, name it with `schema:` and its fields below it, indented, t
     city: String
 -->
 
-<!-- endpoint: schema: User -->
+endpoint: schema: User
 `````
 
 See [Schema](/docs/schema) directive.
@@ -153,7 +145,7 @@ Requests go out from your machine, so a snippet can reach anything it can, like 
 
 Raindown guards against the worst of it:
 
-- **Files can't run themselves.** Only `-x`, or running an endpoint in the terminal UI, sends requests. Reading a file, rendering it without `-x`, and the [VS Code preview](/docs/extensions) never do.
+- **Files can't run themselves.** Only `-x`, or running an endpoint in the terminal UI, sends requests. Reading a file, rendering it without `-x`, and the [VS Code preview](/docs/vscode) never do.
 - **Cloud metadata is refused.** Link-local addresses (`169.254.0.0/16` and `fe80::/10`), like the cloud metadata service at `169.254.169.254` that can give out a server's credentials, are refused however they're written, like `2852039166` or `[::ffff:169.254.169.254]`.
 - **Hosts are checked before they're requested.** Raindown looks up each host itself and pins curl to the address it checked, with `--resolve`, so a name can't point somewhere else by the time curl connects.
 - **Redirects aren't followed.** `-L` is rejected, so a public URL can't redirect to an address that would be refused.

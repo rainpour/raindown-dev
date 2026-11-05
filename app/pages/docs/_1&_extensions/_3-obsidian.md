@@ -5,23 +5,41 @@ published: true
 
 <{ :toc }>
 
-The [Obsidian plugin](https://github.com/rainpour/raindown-obsidian) writes back to your notes as you save them, like `raindown watch`: tables of contents, file lists, [components](/docs/components) and charts. What it writes is plain Markdown in the note, so it reads the same on GitHub, on your phone and in any other editor.
+The [Obsidian plugin](https://github.com/rainpour/raindown-obsidian) writes back to your notes as you save them.
 
-Once you stop typing, it gives the note to the [editor server](/docs/cli#editor-server), or `raindown NOTE --stdin --rewrite` with a Raindown from before it, which answers with the note as Raindown would write it back, and applies that only if the note hasn't changed since, so nothing you type is lost. Errors, like a directive that's half typed, show in the status bar, and directives are highlighted as you type. Bare directives, like `toc:`, need `raindown: true` in a note's front matter, unless the plugin's **Bare directives in every note** setting is on.
+## Features
 
-- **Raindown: Write back this note** writes back now, and says what happened.
-- **Raindown: Run the endpoints in this note** runs the [endpoints](/docs/endpoint) without a response. Endpoints never run on save.
-- **Raindown: Write back all notes** writes back every note with directives.
-- **Raindown: Download Raindown** downloads the latest standalone binary, or updates it.
+### Metadata
 
-Adding, renaming or removing a note writes back the notes with lists, like `files:`, so they don't go stale. In the editor, directive names complete after `<!--` or `<{`, from Raindown's own and your project's nodes, and the line of an error is underlined. Reading view shows `<{ }>` directives as Raindown renders them.
+A note's properties are its [metadata](/docs/metadata), so `tags: [book, reading]` tags it with each item, and a vault's underscored folders, like `_1-inbox`, give its notes a folder and an order.
+
+### Files and lists
+
+[`files:`](/docs/files) writes a link to each note with a tag or in a folder, like `files: tags: 'book'`, and stays up to date as notes are added, renamed or removed. A [`list:`](/docs/list) block renders them with your own template in reading view.
+
+### Tables
+
+[`table:`](/docs/table) writes a CSV or TSV file in your vault into the note as a table. Edit a cell in the note and it's written back to the file, and changing the file updates the table.
+
+### Charts
+
+[`chart:`](/docs/chart) draws a CSV, TSV, JSON or YAML file in your vault, like reading progress or habits, as bars, columns, a line or a sparkline in block characters, written into the note as a code block.
+
+### Table of contents
+
+[`toc:`](/docs/toc) writes a linked list of the note's headings, which updates as you add and rename them.
+
+### Components
+
+A note in your vault's `.raindown` folder, like `BookCard.md`, is a [component](/docs/components#markdown) with no code, a template whose properties fill its `{variables}`, like `BookCard: title: Dune rating: 5`.
 
 ## Install
 
 The plugin isn't in Obsidian's community plugins yet. Copy `main.js`, `manifest.json` and `styles.css` from the [source](https://github.com/rainpour/raindown-obsidian) into your vault's `.obsidian/plugins/raindown/` folder, then turn on **Raindown** in **Settings → Community plugins**.
 
-## Requirements
+## Settings
 
-The `raindown` executable. The first time the plugin can't find it, it looks on your shell's `PATH`, which Obsidian opened from the Dock doesn't have, and if it's not there either, offers to download the [standalone binary](/docs/cli#installation) from GitHub, checked against the release's checksums, to `~/.local/bin/raindown`, or `%LOCALAPPDATA%\Programs\raindown` on Windows, outside your vault so it isn't synced. It's only downloaded if you say so. Once a day at most, a binary it downloaded is checked against the latest release, and it asks before updating it. Turning an update down skips that release.
-
-It can also come from `gem install raindown`, or set the plugin's **Raindown command** to its full path. It's desktop only.
+- **Raindown: Write back this note** - Writes back now, and says what happened
+- **Raindown: Run the endpoints in this note** - Runs the [endpoints](/docs/endpoint) without a response. Endpoints never run on save
+- **Raindown: Write back all notes** - Writes back every note with directives
+- **Raindown: Download Raindown** - Downloads the latest standalone binary, or updates it

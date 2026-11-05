@@ -79,7 +79,7 @@ Bars and lines are 40 characters wide, and columns and lines 8 lines high, which
 
 ## Your own charts
 
-`chart:` is a [node](/docs/components#built-in-nodes), so a project can draw charts its own way with a `Chart` node, like `class Chart < Raindown::Chart`. Raindown only watches the file being rendered, so after changing a chart's data, save the file to redraw it.
+`chart:` is a [node](/docs/components#overriding-core-nodes), so a project can draw charts its own way with a `Chart` node, like `class Chart < Raindown::Chart`. Raindown only watches the file being rendered, so after changing a chart's data, save the file to redraw it.
 
 ## Stats
 

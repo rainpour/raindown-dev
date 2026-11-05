@@ -15,4 +15,4 @@ A `files:` block writes a link to each file in a folder, by its title, into the 
 
 The files come from the [metadata](/docs/metadata) of your project's Markdown files, and can be [filtered](/docs/metadata#filtering) by any of their tags.
 
-`files:` is a [node](/docs/components#built-in-nodes) too, so a project can list files its own way with a `Files` node that overrides `replace` or adds `render`, like `class Files < Raindown::Files`, where `files(metadata:)` gives each file's front matter, `path` and `content`.
+`files:` is a [node](/docs/components#overriding-core-nodes) too, so a project can list files its own way with a `Files` node that overrides `replace` or adds `render`, like `class Files < Raindown::Files`, where `files(metadata:)` gives each file's front matter, `path` and `content`.

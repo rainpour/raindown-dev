@@ -34,4 +34,4 @@ toc:
 
 ## Customising
 
-`toc:` and `:toc` are a [node](/docs/components#built-in-nodes), so a project can change them with its own `TOC` node, like `class TOC < Raindown::TOC`.
+`toc:` and `:toc` are a [node](/docs/components#overriding-core-nodes), so a project can change them with its own `TOC` node, like `class TOC < Raindown::TOC`.

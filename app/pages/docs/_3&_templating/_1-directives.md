@@ -107,4 +107,4 @@ Put a colon at the start of a directive to make it self-closing. Self-closing ta
 
 ### Core
 
-Core nodes are similar to Components, in that they produce output on the page. In fact they can even be overridden by a class and become a Component; an `endpoint:` could become an `Endpoint:` if you sub class the `EndpointNode` with `Endpoint` and place it in `.raindown`. The main difference is that Content nodes are core library features that tap into advanced workflows like sanitising CURL requests or displaying all Stat components inheriting from the Stat node on the TUI Dashboard.
+Core nodes are similar to Components, in that they produce output on the page. Some can even be overridden by a component: a `TOC`, `Files`, `Chart` or `Table` node in `.raindown`, like `class Chart < Raindown::Chart`, replaces `toc:`, `files:`, `chart:` or `table:`. The main difference is that core nodes are library features that tap into advanced workflows, like sanitising curl requests or showing every chart and stat on the terminal UI's [Dashboard](/docs/cli#dashboard).

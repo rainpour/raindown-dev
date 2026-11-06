@@ -1,10 +1,15 @@
 ---
 title: List
 published: true
-usecase: content
 ---
 
-`list:` lists the Markdown files in your project by their [metadata](/docs/metadata), like a folder or a tag, and they can be [filtered](/docs/metadata#filtering) by any of their tags. Bare or in comments, it writes a link to each file, by its title, into the Markdown, and renders them as a list in the HTML:
+<{ :toc }>
+
+`list:` lists the Markdown files in your project by their [metadata](/docs/metadata), like a folder or a tag, and they can be [filtered](/docs/metadata#filtering) by any of their tags.
+
+## Content
+
+<{ UseCase use_case='content' }>
 
 ```
 list: folder: 'notes'
@@ -12,19 +17,23 @@ list: folder: 'notes'
 - [Setup](docs/_notes/_2-setup.md)
 ```
 
-`<{ :list folder: 'notes' }>` renders the same links, writing nothing into the file.
+## Template
 
-## Your own template
+<{ UseCase use_case='template' }>
 
-To render the files with your own template, name each file before the props, like `page`, in a `<{ list: }>` block. Its template repeats for each file, and only renders in the HTML:
+A `<{ list: }>` block's template repeats like a loop, for each file it lists.
+
+`<{ :list folder: 'nodes' }>` renders the same links as the *Content* example, but writes nothing into the file.
+
+To render the files with your own template, add a variable like `page` after `list:`
 
 ```md
-<{ list: page folder: 'notes' }>
-## {page.title}
+<{ list: page folder: 'nodes' }>
+- [{page.title}]({page.path})
 <{ :list }>
 ```
 
-For example, this list of the node pages is a `list:` block:
+Which when used on this website produces:
 
 <{ list: page folder: 'nodes' }>
 - [{page.title}]({page.path})
@@ -32,7 +41,19 @@ For example, this list of the node pages is a `list:` block:
 
 ## Sorting
 
-Files are listed by their `order`, from their [metadata](/docs/metadata), or by any other metadata with `order:`, like `<{ list: page folder: 'notes' order: :created_at }>`, with files without it last.
+Sort lists by their [metadata](/docs/metadata) with `order:`
+
+```md
+<{ list: page folder: 'nodes' order: :title }>
+- [{page.title}]({page.path})
+<{ :list }>
+```
+
+Which when used on this website produces:
+
+<{ list: page folder: 'nodes' order: :title }>
+- [{page.title}]({page.path})
+<{ :list }>
 
 ## Overriding
 

@@ -130,7 +130,7 @@ Set `RAINDOWN_DEBUG=1` to show where an error happened.
 
 ## Watching projects
 
-Watching a directory watches each project in it, a folder with a `.raindown` folder, and the Markdown files below it, skipping hidden folders and ones like `node_modules` and `build`. So you can start `raindown watch` once in a folder like `~/dev` and it watches every Raindown project inside.
+Watching a directory watches each project in it, a folder with a `.raindown` folder, and the Markdown files below it, skipping hidden folders and ones like `node_modules` and `build`. An Obsidian vault, a folder with an `.obsidian` folder, is left alone when it's below the folder Raindown's watching, even with a `.raindown` folder of its own, so a `raindown` on `~/dev` and the [Obsidian plugin](https://github.com/rainpour/raindown-obsidian)'s own server don't both write back to its notes. Pointed at the vault itself, Raindown watches it as usual. So you can start `raindown watch` once in a folder like `~/dev` and it watches every Raindown project inside.
 
 Each project's components load in a process of their own, so two projects can have components of the same name, and saving one of a project's components reloads them. Files are written back as they're saved, not all at once when watching starts.
 

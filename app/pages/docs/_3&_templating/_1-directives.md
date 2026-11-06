@@ -25,11 +25,17 @@ While there are technically 9 combinations of ways you could use the above conce
 
 ## Comparison
 
-| Syntax           | Write-back                        | HTML: directive                         | GitHub preview: directive               | GitHub preview: output |
-| ---------------- | --------------------------------- | --------------------------------------- | --------------------------------------- | ---------------------- |
-| **Bare**         | <span class="pill yes">Yes</span> | <span class="pill shown">Bold</span>    | Raw text `name:`                        | Rendered Markdown      |
-| **HTML Comment** | <span class="pill yes">Yes</span> | <span class="pill hidden">Hidden</span> | <span class="pill hidden">Hidden</span> | Rendered Markdown      |
-| **Deerheads**    | <span class="pill no">No</span>   | <span class="pill hidden">Hidden</span> | Raw text `<{ name: }>`                  | Raw text `<{ name: }>` |
+| Written as                                              | Writes into the file                                         | Shows in the HTML                                       | Typical use                                                 |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------- | ----------------------------------------------------------- |
+| **Bare** `toc:`                                         | <span class="pill yes">Yes</span>, up to the next blank line | <span class="pill shown">Bold</span>                    | `.rd` files, where you want to see where content comes from |
+| **HTML Comment** `<!-- toc: -->` … `<!-- :toc -->`      | <span class="pill yes">Yes</span>, up to its end tag         | <span class="pill hidden">Hidden</span>, also on GitHub | Plain `.md` that should read cleanly anywhere               |
+| **Deerheads** `<{ toc: }>` … `<{ :toc }>`, `<{ Card }>` | <span class="pill no">Never</span>                           | <span class="pill hidden">Hidden</span>                 | Templates, layouts and render-only components               |
+| **Variable** `{title}` or `<{ title }>`                 | <span class="pill no">Never</span>                           | The value, escaped or raw                               | [Variables](/docs/variables)                                |
+| **Translation** `{:app_name}`                           | <span class="pill no">Never</span>                           | The translation                                         | Translations                                                |
+
+### The colon
+
+A colon after the name opens a block, like `toc:`, `<!-- toc: -->` or `<{ Card: }>`, and a colon before the name closes the block, which could be an end tag, like `<!-- :toc -->` or `<{ :Card }>`, or a self-closing tag, like a bare `:toc` or `<{ :toc }>`. A capitalized node can be self-closing without a colon, like `<{ Card }>`, while `<{ title }>` without one is a variable.
 
 > [!NOTE]
 > All directive types can output HTML or Markdown that is rendered to HTML, it's up to you to enable it per component. See [Components](/docs/components).
@@ -74,7 +80,7 @@ When its output needs blank lines, put it in HTML comments with an end tag inste
 
 <{ UseCase use_case='template' }>
 
-Great for control flow nodes like `if:` and `for:` that need closing tags and only care about HTML output. A node in Deerheads is written in: Raindown only calls its `render`, never its `replace`, and the Markdown between its tags is its input, as `slot:`. You would typically use Deerheads inside a [custom component](/docs/components#custom-components) or for [Static Site Generation](/docs/static).
+Great for control flow nodes like `if:` and `for:` that need closing tags and only care about HTML output. A node in Deerheads is write-in: Raindown only calls its `render`, never its `rewrite`, and the Markdown between its tags is its input, as `slot:`. You would typically use Deerheads inside a [custom component](/docs/components#custom-components) or for [Static Site Generation](/docs/static).
 
 #### Variables
 
@@ -95,7 +101,7 @@ It has two paragraphs.
 
 Directives in prose or code are left as text in GitHub previews, but hidden in the generated HTML.
 
-Shape how the Markdown around them renders, like Liquid or Jinja: [variables](/docs/variables) like `{title}`, [loops](/docs/control-flow#loops) with `for:`, [conditions](/docs/control-flow#conditions) with `if:` and [lists](/docs/list) with `list:`.
+Shape how the Markdown around them renders, like Liquid or Jinja: [variables](/docs/variables) like `{title}`, [loops](/docs/control-flow#loops) with `for:` and [conditions](/docs/control-flow#conditions) with `if:`. A [`list:`](/docs/list) block's template repeats like a loop, for each file it lists.
 
 You write their output as a template, and they decide whether it appears and how many times, filling in values like `{title}`. They're always written in `<{ }>`, never bare, and they're invisible in the HTML, since the input is a template, and showing them would break the tables and lists they often sit in.
 
@@ -107,4 +113,4 @@ Put a colon at the start of a directive to make it self-closing. Self-closing ta
 
 ### Core
 
-Core nodes are similar to Components, in that they produce output on the page. Some can even be overridden by a component: a `TOC`, `Files`, `Chart` or `Table` node in `.raindown`, like `class Chart < Raindown::Chart`, replaces `toc:`, `files:`, `chart:` or `table:`. The main difference is that core nodes are library features that tap into advanced workflows, like sanitising curl requests or showing every chart and stat on the terminal UI's [Dashboard](/docs/cli#dashboard).
+Core nodes are similar to Components, in that they produce output on the page. Some can even be overridden by a component: a `TOC`, `List`, `Chart` or `Table` node in `.raindown`, like `class Chart < Raindown::Chart`, replaces `toc:`, `files:`, `chart:` or `table:`. The main difference is that core nodes are library features that tap into advanced workflows, like sanitising curl requests or showing every chart and stat on the terminal UI's [Dashboard](/docs/cli#dashboard).

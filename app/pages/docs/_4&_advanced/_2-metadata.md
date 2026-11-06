@@ -26,23 +26,23 @@ order: 1
 path: docs/_basics/_1-getting-started.md
 ```
 
-The `path` is relative to the project, so the links `files:` writes work in the Markdown, like on GitHub.
+The `path` is relative to the project, so the links `list:` writes work in the Markdown, like on GitHub.
 
 Files are listed by `order`, and separate several folder tags with `&`, like `docs/_1&_basics/getting-started.md`.
 
 ## Filtering
 
-Filter by any of a file's tags, with quoted values, since unquoted ones are front matter keys:
+Filter by any of a file's tags. In `<{ }>`, quote their values, since unquoted ones are variables:
 
 ```md
-files: folder: 'basics'
+list: folder: 'basics'
 
-files: tags: 'intro'
+list: tags: 'intro'
 ```
 
 ## Listing
 
-[Files](/docs/files) and [list](/docs/list) list the Markdown files in your project by their metadata. The project is the folder with your [`.raindown`](/docs/components) folder, or else the folder of the file being rendered.
+[List](/docs/list) lists the Markdown files in your project by their metadata. The project is the folder with your [`.raindown`](/docs/components) folder, or else the folder of the file being rendered.
 
 ## Wikilinks
 
@@ -52,4 +52,4 @@ Like in [Obsidian](https://obsidian.md), `[[Reading list]]` links to the file na
 - **`[[Reading list|books]]`** changes the text.
 - **`[[notes/Reading list]]`** picks one of two files with the same name.
 
-They render as links, by the file's path like `files:`, while the file keeps them as you wrote them, so Obsidian still reads it. Ones that name no file, embeds like `![[photo.png]]`, and ones in code are left as they are.
+They render as links, by the file's path like `list:`, while the file keeps them as you wrote them, so Obsidian still reads it. Ones that name no file, embeds like `![[photo.png]]`, and ones in code are left as they are.

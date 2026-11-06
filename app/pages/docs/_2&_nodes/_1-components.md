@@ -8,9 +8,11 @@ published: true
 > [!NOTE]
 > A node is how it's built and a component is how it's rendered. They are data and logic that you want to include from another place into your page. Nodes that start with a capital letter like `Changelog:` are always components.
 
-Components are your own directives, written in Ruby, JavaScript or plain Markdown, that write Markdown into the file with `replace`, and render HTML into the page with `render`.
+Components are your own directives, written in Ruby, JavaScript or plain Markdown, that write Markdown into the file with `rewrite`, and render HTML into the page with `render`.
 
-How you write one says which it does. Bare or in comments, like `Changelog:` or `<!-- Changelog: -->`, it writes back: its `replace` writes into the file. In Deerheads, like `<{ Changelog: }>` … `<{ :Changelog }>` or `<{ :Changelog }>`, it's written in: only its `render` is called, which gets the Markdown between its tags as `slot:`, and nothing is written into the file. A component with only `render`, like a `Layout`, can only be written in, and one with only `replace` raises in Deerheads.
+How you write one says which it does. Bare or in comments, like `Changelog:` or `<!-- Changelog: -->`, it writes back: its `rewrite` writes into the file. In Deerheads, like `<{ Changelog: }>` … `<{ :Changelog }>` or a self-closing `<{ Changelog }>`, it's write-in: only its `render` is called, which gets the Markdown between its tags as `slot:`, and nothing is written into the file. A component with only `render`, like a `Layout`, can only be write-in, and one with only `rewrite` raises in Deerheads.
+
+What a component writes back is Raindown's, and it's written again from its source each time the file is rendered. A component can take edits to it, like [`table:`](/docs/table) writing them to its CSV file, when its `rewrite` takes `written:`, the lines it wrote last time, to see what changed. It then needs its own `render` to be write-in, so rendering a page never writes to its source.
 
 Put them in a `.raindown` folder beside your files, or in a folder above them, and Raindown loads them automatically.
 
@@ -28,7 +30,7 @@ class Changelog < LowNode
   end
 
   # Written into the Markdown.
-  def replace
+  def rewrite
     @releases.map { |release| "- **#{release.version}** #{release.summary}" }.join("\n")
   end
 
@@ -39,15 +41,15 @@ class Changelog < LowNode
 end
 ```
 
-`replace` and `render` can also take the keywords `document:` (the Markdown being rendered), `metadata:` and `bare:`, and get the ones they ask for. `render` can also take `slot:`, the HTML of the Markdown between its tags in Deerheads.
+`rewrite` and `render` can also take the keywords `document:` (the Markdown being rendered), `metadata:` and `bare:`, and get the ones they ask for. `render` can also take `slot:`, the HTML of the Markdown between its tags in Deerheads.
 
 #### Overriding Core Nodes
 
-[Table of contents](/docs/toc), [files](/docs/files), [charts](/docs/chart) and [tables](/docs/table) are nodes too, and a project can replace them with its own Ruby `TOC`, `Files`, `Chart` or `Table` node, like `class Chart < Raindown::Chart`. Endpoints and schemas can't be replaced.
+[Table of contents](/docs/toc), [lists](/docs/list), [charts](/docs/chart) and [tables](/docs/table) are nodes too, and a project can replace them with its own Ruby `TOC`, `Files`, `Chart` or `Table` node, like `class Chart < Raindown::Chart`. Endpoints and schemas can't be replaced.
 
 ### JavaScript
 
-A JavaScript component is a `.js` or `.mjs` file in the same `.raindown` folder that exports a class with `replace`, and optionally `render`:
+A JavaScript component is a `.js` or `.mjs` file in the same `.raindown` folder that exports a class with `rewrite`, and optionally `render`:
 
 ```js
 // .raindown/changelog.mjs
@@ -59,7 +61,7 @@ export class Changelog {
   }
 
   // Written into the Markdown. Can be async.
-  replace({ document, metadata, bare }) {
+  rewrite({ document, metadata, bare }) {
     return this.releases.map((release) => `- **${release.version}** ${release.summary}`).join("\n")
   }
 
@@ -75,7 +77,7 @@ It's used like any component, like `Changelog: limit=3`. Its props come first in
 - A Ruby component of the same name is used instead.
 - JavaScript components need [Node.js](https://nodejs.org) 22 or later on your `PATH`, which runs them in one process of their own, and only projects that have them need it.
 - What they log goes to stderr.
-- They can't subclass Raindown's own nodes, like `Chart`, so they can't replace `toc:`, `files:`, `chart:` or `table:`.
+- They can't subclass Raindown's own nodes, like `Chart`, so they can't replace `toc:`, `list:`, `chart:` or `table:`.
 
 ### Markdown
 
@@ -104,9 +106,9 @@ A value before the props, like `'data.csv'` in `chart: 'data.csv' format: 'colum
 
 ## Lifecycle
 
-Raindown keeps one instance of each component and its props while it runs, so `replace` and `render` can share what they work out, like the releases above.
+Raindown keeps one instance of each component and its props while it runs, so `rewrite` and `render` can share what they work out, like the releases above.
 
-A name only starts a component block when it's a loaded component with a `replace` method, so other text like `Note:` is left alone.
+A name only starts a component block when it's a loaded component with a `rewrite` method, so other text like `Note:` is left alone.
 
 > [!WARNING]
 > Components run your project's code whenever Raindown writes back to or renders the file.

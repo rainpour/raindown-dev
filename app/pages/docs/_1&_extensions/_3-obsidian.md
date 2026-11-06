@@ -13,9 +13,9 @@ The [Obsidian plugin](https://github.com/rainpour/raindown-obsidian) writes back
 
 A note's properties are its [metadata](/docs/metadata), so `tags: [book, reading]` tags it with each item, and a vault's underscored folders, like `_1-inbox`, give its notes a folder and an order.
 
-### Files and lists
+### Lists
 
-[`files:`](/docs/files) writes a link to each note with a tag or in a folder, like `files: tags: 'book'`, and stays up to date as notes are added, renamed or removed. A [`list:`](/docs/list) block renders them with your own template in reading view.
+[`list:`](/docs/list) writes a link to each note with a tag or in a folder, like `list: tags: 'book'`, and stays up to date as notes are added, renamed or removed. In a `<{ list: }>` block, it renders them with your own template in reading view.
 
 ### Tables
 

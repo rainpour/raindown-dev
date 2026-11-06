@@ -7,13 +7,13 @@ summary: Create components with custom output
 
 ```ruby
 class Changelog < LowNode
-  def replace = "- **1.2.0** ..."
+  def rewrite = "- **1.2.0** ..."
 end
 ```
 
 ```js
 export class Changelog {
-  replace() { return "- **1.2.0** ..." }
+  rewrite() { return "- **1.2.0** ..." }
 }
 ```
 

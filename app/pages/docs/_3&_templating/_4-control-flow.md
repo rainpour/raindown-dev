@@ -31,7 +31,7 @@ links:
 <{ :for }>
 ```
 
-To loop over your project's files, use a [list](/docs/list) or [files](/docs/files) node.
+To loop over your project's files, use a [list](/docs/list) block.
 
 ## Conditions
 

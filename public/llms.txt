@@ -10,12 +10,13 @@ Raindown renders a `.md`, `.rd` or `.raindown` file to HTML, and on each render 
   - Bare `toc:` (Raindown files only): writes its output into the file, and shows in bold in the HTML.
   - HTML comments, `<!-- toc: -->` ... `<!-- :toc -->`: writes its output into the file, and is left out of the HTML and GitHub's preview.
   - Deerheads, `<{ toc: }>` ... `<{ :toc }>`, or a self-closing `<{ :toc }>`: renders into the HTML only, writing nothing into the file.
+- A colon after the name opens a block (`toc:`, `<{ Card: }>`), and a colon before the name closes the block, which could be an end tag (`<!-- :toc -->`) or a self-closing tag (bare `:toc`, `<{ :toc }>`). A capitalized node is self-closing without one, `<{ Card }>`, while `<{ title }>` is a variable and `{:app_name}` a translation.
 - Template directives are always Deerheads, like `<{ if: draft }>` ... `<{ :if }>`, never bare.
 - Variables are `{key}` (HTML-escaped) or `<{ key }>` (unescaped, so only for values you trust). Nested paths work: `{author.name}`. Unknown variables render nothing.
 - Directives and variables inside inline code or code blocks are left as literal text.
 - Arguments: an optional first value, then props written `key=value` or `key: value`. Values are quoted strings (`'notes'`), numbers, `true`, `false`, or unquoted variable names (`tags`, `author.name`). Quote literal strings, since unquoted words are variables.
-- Template directives (`for:`, `if:`, `list:`, variables) are invisible in the HTML and may sit inside paragraphs, lists and tables.
-- Content directives (`toc:`, `files:`, `chart:`, `endpoint:`, custom nodes) sit on their own lines with blank lines around them.
+- Template directives (`for:`, `if:`, variables) are invisible in the HTML and may sit inside paragraphs, lists and tables.
+- Content directives (`toc:`, `list:`, `chart:`, `endpoint:`, custom nodes) sit on their own lines with blank lines around them.
 - Capitalised content directives are likely custom nodes. If there is a custom node in the .raindown folder of the same name then it's a custom class, if not it's just manually entered text.
 
 ## Bare directives (.rd and .raindown files, or raindown: true)
@@ -63,15 +64,15 @@ Templates render before Markdown, like Liquid in Jekyll, so a loop's lines join 
 - `<{ :toc }>` (bare: `:toc`): renders a TOC of the file's headings in the HTML only.
 - `<!-- toc: -->` ... `<!-- :toc -->` (bare: `toc:` with the list directly below): also writes the TOC into the file as a nested list of `[Heading](#id)` links, regenerated on every render.
 
-## Files and lists
+## Lists
 
 Files in the project are listed by their metadata: front matter keys, plus underscored folders in the path. `docs/_basics/_1-getting-started.md` has `folder: basics`, `order: 1` and `path: docs/_basics/_1-getting-started.md`. Several folder tags in one segment are separated with `&`, like `_1&_basics`. A front matter list like `tags: [ruby, intro]` tags the file with each item. Files sort by `order`. The project root is the folder holding the `.raindown` folder, or else the rendered file's folder.
 
-- `<!-- files: folder: 'notes' -->` ... `<!-- :files -->`: writes a link to each matching file, by title, into the Markdown and renders it as a list.
+- `<!-- list: folder: 'notes' -->` ... `<!-- :list -->`: writes a link to each matching file, by title, into the Markdown and renders it as a list. `<{ :list folder: 'notes' }>` renders the links without writing them.
 - `[[Note]]`, `[[Note#Heading]]` and `[[Note|text]]` render as links to the file named Note, anywhere in the project.
 - `<{ list: page folder: 'notes' }>` ... `<{ :list }>`: repeats its template for each matching file, with the file bound to `page` (`{page.title}`). HTML only, nothing is written to the file.
 
-Filter values must be quoted: `files: tags: 'intro'`.
+Filter by any tag, like `list: tags: 'intro'`, and sort by any metadata with `order:`, like `order: :created_at`, rather than by `order`. In `<{ }>` quote the values, as unquoted ones are variables.
 
 ## Charts
 
@@ -115,7 +116,7 @@ curl https://httpbin.org/uuid
 
 ## Custom nodes
 
-Nodes are Ruby classes (LowNode subclasses) in a `.raindown/` folder at or above the file. `replace` returns Markdown written into the file; optional `render` returns HTML for the page.
+Nodes are Ruby classes (LowNode subclasses) in a `.raindown/` folder at or above the file. `rewrite` returns Markdown written into the file; optional `render` returns HTML for the page.
 
 ```ruby
 # .raindown/changelog.rb
@@ -124,7 +125,7 @@ class Changelog < LowNode
     @releases = Release.all.first(limit)
   end
 
-  def replace
+  def rewrite
     @releases.map { |r| "- **#{r.version}** #{r.summary}" }.join("\n")
   end
 end
@@ -137,11 +138,12 @@ end
 ```
 
 - Bare form: `Changelog: limit=3` with the output directly below, up to the next blank line (so the output can't contain blank lines).
-- In `<{ }>` a node is written in: `<{ :Changelog }>`, bare `:Changelog`, or a `<{ Changelog: }>` ... `<{ :Changelog }>` block only calls `render`, never `replace`, and writes nothing into the file. A block's Markdown between its tags is passed to `render` as `slot:`, in HTML. A node without `render` raises there; Raindown's own nodes have one.
+- In `<{ }>` a node is write-in: `<{ Changelog }>`, or `<{ :Changelog }>`, which a lowercase name needs, like `<{ :toc }>`, bare `:Changelog`, or a `<{ Changelog: }>` ... `<{ :Changelog }>` block only calls `render`, never `rewrite`, and writes nothing into the file. A block's Markdown between its tags is passed to `render` as `slot:`, in HTML. Its props can be loop variables, like `<{ Changelog limit=n }>` in a `for:`, and it can be in another node's slot. A node without `render` raises there; Raindown's own nodes have one.
+- A node takes edits to what it wrote when its `rewrite` takes `written:`, like `table:` writing edits to its CSV file. Such a node needs its own `render`, which never writes, to be write-in.
 - A leading value (like `'data.csv'` in `chart: 'data.csv'`) is passed as the positional argument to `initialize`; props are keyword arguments.
-- `replace` and `render` may accept the keywords `document:`, `metadata:` and `bare:`, and `render` also `slot:`.
-- A capitalized `Name:` only starts a node block if a loaded LowNode by that name has `replace`, so prose like `Note:` is safe.
-- Built-in `toc:`, `files:` and `chart:` are nodes too, and can be overridden: `class TOC < Raindown::TOC`, `class Files < Raindown::Files`, `class Chart < Raindown::Chart`.
+- `rewrite` and `render` may accept the keywords `document:`, `metadata:` and `bare:`, and `render` also `slot:`.
+- A capitalized `Name:` only starts a node block if a loaded LowNode by that name has `rewrite`, so prose like `Note:` is safe.
+- Built-in `toc:`, `list:` and `chart:` are nodes too, and can be overridden: `class TOC < Raindown::TOC`, `class List < Raindown::List`, `class Chart < Raindown::Chart`.
 
 ## Config
 

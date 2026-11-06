@@ -138,7 +138,7 @@ Watching only writes back to the Markdown. To render HTML, use `--html`.
 
 ## Writing back
 
-Unless it reads from stdin, Raindown writes back to the file it watches or renders: content directives that are bare or in HTML comments, like `toc:` and `<!-- files: -->`, fill in their Markdown, endpoints write their responses, and tables are aligned. Directives in `<{ }>` only render, so they write nothing.
+Unless it reads from stdin, Raindown writes back to the file it watches or renders: content directives that are bare or in HTML comments, like `toc:` and `<!-- list: -->`, fill in their Markdown, endpoints write their responses, and tables are aligned. Directives in `<{ }>` only render, so they write nothing.
 
 ## Editor server
 

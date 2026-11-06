@@ -1,0 +1,4 @@
+item,units,price
+Tea,3,1.5
+Cake,2,2.25
+"",=sum(b),""

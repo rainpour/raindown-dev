@@ -38,6 +38,34 @@ When both changed, Raindown warns and leaves both as they are, so neither edit i
 
 Emptying the table never empties the file.
 
+## Totals
+
+With `total: true`, a bold row below the table sums each column whose cells are all numbers or blank, to the most decimal places any of them has. The first column reads Total, unless it's numbers too:
+
+````md
+table: 'data/sales.csv' total: true
+<!-- table 2 rows · 40ec83 -->
+| item      | units | price    |
+| --------- | ----- | -------- |
+| Tea       | 3     | 1.5      |
+| Cake      | 2     | 2.25     |
+| **Total** | **5** | **3.75** |
+````
+
+table: 'data/sales.csv'
+<!-- table 3 rows · a55f32 -->
+| item | units | price |
+| ---- | ----- | ----- |
+| Tea  | 3     | 1.5   |
+| Cake | 2     | 2.25  |
+|      | 5     |       |
+
+The total is worked out again whenever the table's written, and never written to the file. Edit the rows above it, or add rows below it, and it sums them.
+
+## Formulas
+
+Formula cells in the file, like `=SUM(B)` by its column's letter or `=sum(Price)` by its header, show their values in the table, summing the numbers in the column below its header, like a spreadsheet, and leaving out other formulas. Case doesn't matter, in `SUM` or the column, so `=Sum(b)` and `=sum(PRICE)` work too. A formula naming a column that doesn't exist shows as it's written, like other formulas, so you can keep typing it. When the table's edits are written back, a formula cell still showing its value keeps its formula, so type a new formula or value into one to replace it. To edit its formula instead, delete the spaces around its value, so it's no longer lined up with its column, and the formula shows in its place, like `=SUM(B)`. It keeps showing until you change it, ignoring spaces, and then it's written to the file and shows its value again. Adding or deleting rows above a formula cell moves it, so check it's still a formula afterwards.
+
 ## Cells
 
 A `|` in a cell is written as `\|`, and a line break in one as a space, as a table's cells are one line. Raindown lines up the table's columns when it writes the file back, so don't worry about aligning them. When the table's rows are written back, the file is written as CSV or TSV again, quoting only the cells that need it.

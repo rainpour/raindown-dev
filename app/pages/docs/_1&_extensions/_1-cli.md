@@ -9,11 +9,9 @@ published: true
 
 ### Script
 
-The quickest way, on [macOS, Linux and Windows](/docs/install):
+The quickest way:
 
-```sh
-curl -fsSL https://raindown.dev/install.sh | sh
-```
+<{ InstallCommand }>
 
 ### Binary
 
@@ -49,7 +47,7 @@ The gem compiles the curses gem, for the [terminal UI](/docs/cli#terminal-ui), s
 
 ## Updating
 
-Download the binary again from the table above and replace the old one.
+Run the install script again, or download the binary again from the table above and replace the old one.
 
 If you installed the gem via Ruby then do:
 ```shell

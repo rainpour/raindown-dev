@@ -19,7 +19,7 @@ system_name() {
     Linux)
       if ldd --version 2>&1 | grep -qi musl; then echo linux-musl; else echo linux; fi
       ;;
-    *) fail "there's no binary for $(uname -s). See https://raindown.dev/docs/install" ;;
+    *) fail "there's no binary for $(uname -s). See https://raindown.dev/docs/cli#installation" ;;
   esac
 }
 
@@ -27,7 +27,7 @@ cpu_name() {
   case "$(uname -m)" in
     x86_64 | amd64) echo x86_64 ;;
     arm64 | aarch64) echo arm64 ;;
-    *) fail "there's no binary for $(uname -m). See https://raindown.dev/docs/install" ;;
+    *) fail "there's no binary for $(uname -m). See https://raindown.dev/docs/cli#installation" ;;
   esac
 }
 

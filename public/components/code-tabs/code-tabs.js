@@ -3,7 +3,7 @@
 const LANGUAGES = { ruby: 'Ruby', js: 'JavaScript', md: 'Markdown' };
 
 document.querySelectorAll('.code-tabs').forEach((codeTabs) => {
-  const blocks = [...codeTabs.querySelectorAll('pre')];
+  const blocks = [...codeTabs.querySelectorAll(':scope > pre')];
   const tablist = document.createElement('div');
   tablist.className = 'tabs';
   tablist.setAttribute('role', 'tablist');
@@ -14,7 +14,7 @@ document.querySelectorAll('.code-tabs').forEach((codeTabs) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.setAttribute('role', 'tab');
-    button.textContent = LANGUAGES[language] || language;
+    button.textContent = block.dataset.label || LANGUAGES[language] || language;
     block.setAttribute('role', 'tabpanel');
     tablist.append(button);
     return button;

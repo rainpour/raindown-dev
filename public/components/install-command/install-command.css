@@ -1,0 +1,23 @@
+/* The install command from code-tabs, with a button at its right, and the instructions for the system showing. */
+.install-command:has(pre[data-system='macos'][hidden]) [data-for='macos'],
+.install-command:has(pre[data-system='linux'][hidden]) [data-for='linux'],
+.install-command:has(pre[data-system='windows'][hidden]) [data-for='windows'] {
+  display: none;
+}
+
+.install-command pre[data-system] {
+  position: relative;
+  padding-right: 6rem;
+  white-space: pre-wrap;
+}
+
+.install-copy {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  width: auto;
+  margin: 0;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  transform: translateY(-50%);
+}

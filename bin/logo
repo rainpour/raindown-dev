@@ -2,7 +2,12 @@
 # frozen_string_literal: true
 
 # Writes "public/assets/raindown.svg", the home page's rain cloud as a logo, from the same seeded RainCloud, so the
-# two match block for block. Run it again after changing the cloud.
+# two match block for block, and with --png "public/assets/raindown.png" too, with a transparent background. Run it
+# again after changing the cloud.
+#   bin/logo
+#   bin/logo --png
+
+require 'zlib'
 
 require_relative '../app/home/rain_cloud'
 
@@ -11,6 +16,7 @@ CELL_HEIGHT = 10
 HALF_WIDTH = CELL_WIDTH / 2
 HALF_HEIGHT = CELL_HEIGHT / 2
 RAIN_BLUE = 'hsl(212 100% 70%)'
+PNG_SCALE = 4
 
 # Each character as the rectangles it fills in its cell, [x, y, width, height], and its opacity. Rain is drawn wider
 # than a line of text, so it still shows when the logo is small.
@@ -38,6 +44,52 @@ Rect = Data.define(:x, :y, :width, :height, :fill, :opacity) do
   def svg(left)
     opacity = %( opacity="#{self.opacity}") if self.opacity < 1
     %(<rect x="#{(x - left).round(1)}" y="#{y.round(1)}" width="#{width}" height="#{height}" fill="#{fill}"#{opacity}/>)
+  end
+end
+
+# An image of red, green, blue and alpha bytes, with nothing behind its rectangles, written as a PNG.
+class PngImage
+  SIGNATURE = "\x89PNG\r\n\x1A\n".b
+  RGBA = 6
+
+  def initialize(width:, height:)
+    @width = (width * PNG_SCALE).ceil
+    @height = (height * PNG_SCALE).ceil
+    @pixels = Array.new(@width * @height * 4, 0)
+  end
+
+  def draw(rect, left)
+    columns = pixels_between(rect.x - left, rect.right - left)
+    rows = pixels_between(rect.y, rect.bottom)
+    color = rect.fill.delete('#').scan(/../).map { it.to_i(16) }
+
+    rows.to_a.product(columns.to_a) { |row, column| blend(((row * @width) + column) * 4, color, rect.opacity) }
+  end
+
+  def write(path)
+    header = [@width, @height, 8, RGBA, 0, 0, 0].pack('NNC5')
+    lines = (0...@height).map { |row| "\0".b + @pixels[row * @width * 4, @width * 4].pack('C*') }
+    File.binwrite(path, SIGNATURE + chunk('IHDR', header) + chunk('IDAT', Zlib.deflate(lines.join, 9)) + chunk('IEND', ''))
+  end
+
+  private
+
+  def pixels_between(start, finish)
+    (start * PNG_SCALE).round...(finish * PNG_SCALE).round
+  end
+
+  # The color over what's already at the pixel, as an SVG viewer draws one rectangle over another.
+  def blend(index, color, opacity)
+    below = @pixels[index + 3] / 255.0
+    alpha = opacity + (below * (1 - opacity))
+    color.each_with_index do |channel, offset|
+      @pixels[index + offset] = (((channel * opacity) + (@pixels[index + offset] * below * (1 - opacity))) / alpha).round
+    end
+    @pixels[index + 3] = (alpha * 255).round
+  end
+
+  def chunk(type, data)
+    [data.bytesize].pack('N') + type + data + [Zlib.crc32(type + data)].pack('N')
   end
 end
 
@@ -78,3 +130,11 @@ File.write(path, <<~SVG)
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{width} #{height}" role="img"><title>Raindown</title>#{rects.map { it.svg(left) }.join}</svg>
 SVG
 puts "Wrote #{path}"
+
+if ARGV.include?('--png')
+  png = PngImage.new(width:, height:)
+  rects.each { png.draw(it, left) }
+  path = File.expand_path('../public/assets/raindown.png', __dir__)
+  png.write(path)
+  puts "Wrote #{path}"
+end

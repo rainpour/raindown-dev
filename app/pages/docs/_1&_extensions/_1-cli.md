@@ -138,7 +138,7 @@ Set `RAINDOWN_DEBUG=1` to show where an error happened.
 
 ## Watching projects
 
-Watching a directory watches each project in it, a folder with a `.raindown` folder, and the Markdown files below it, skipping hidden folders and ones like `node_modules` and `build`. An Obsidian vault, a folder with an `.obsidian` folder, is left alone when it's below the folder Raindown's watching, even with a `.raindown` folder of its own, so a `raindown` on `~/dev` and the [Obsidian plugin](https://github.com/rainpour/raindown-obsidian)'s own server don't both write back to its notes. Pointed at the vault itself, Raindown watches it as usual. So you can start `raindown watch` once in a folder like `~/dev` and it watches every Raindown project inside.
+Watching a directory watches each project in it, a folder with a `.raindown` folder, and the Markdown files below it, skipping hidden folders and ones like `node_modules` and `build`. An Obsidian vault (a folder with an `.obsidian` folder) is left alone when it's below the folder Raindown's watching, even with a `.raindown` folder of its own, so a `raindown` on `~/dev` and the [Obsidian plugin](https://github.com/rainpour/raindown-obsidian)'s own server don't both overwrite each other. Raindown will still watch an Obsidian vault if you point at just that folder.
 
 Each project's components load in a process of their own, so two projects can have components of the same name, and saving one of a project's components reloads them. Files are written back as they're saved, not all at once when watching starts.
 
@@ -146,19 +146,7 @@ Watching only writes back to the Markdown. To render HTML, use `--html`.
 
 ## Writing back
 
-Unless it reads from stdin, Raindown writes back to the file it watches or renders: content directives that are bare or in HTML comments, like `toc:` and `<!-- list: -->`, fill in their Markdown, endpoints write their responses, and tables are aligned. Directives in `<{ }>` only render, so they write nothing.
-
-## Editor server
-
-Editors keep Raindown loaded with `raindown server`, so a render doesn't start Ruby again each time: the first takes about a second, and the ones after it a few milliseconds. It says it's ready, then answers one JSON request a line on stdin, in order, on stdout:
-
-```
-{"ready":true,"version":"0.10.0"}
-{"id":1,"path":"/notes/a.md","markdown":"# A\n\n<!-- toc: -->\n<!-- :toc -->\n","rewrite":true}
-{"id":1,"output":"# A\n\n<!-- toc: -->\n- [A](#a)\n<!-- :toc -->\n","warnings":[]}
-```
-
-With `"rewrite": true`, it answers like `--stdin --rewrite`, with `"execute": true` like `-x`, and otherwise with HTML, like `--stdin`. `"bare": true` is like `--bare`. An error is answered as `{"id":1,"error":"raindown: /notes/a.md: ..."}`. Each project renders in a process of its own, which starts again when a file in its `.raindown` folder changes, so its components, config and schemas are never stale. On Windows, which can't fork, start the server again after changing them.
+Unless it reads from stdin, the CLI writes back to the file it watches or renders: content directives that are bare or in HTML comments, like `toc:` and `<!-- list: -->`, fill in their Markdown, endpoints write their responses, and tables are aligned. Directives in `<{ }>` only render, so they write nothing.
 
 ## Terminal UI
 

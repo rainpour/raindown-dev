@@ -24,7 +24,7 @@ order: 1
 ---
 ```
 
-> [!NOTE]
+> [!TIP]
 > Separate multiple folder tags with `&`:
 > `docs/_1&_basics/_1-getting-started.md`
 
@@ -72,9 +72,8 @@ Mar  █████████████████████████
 # Books
 
 toc:
-- [Books](#books)
-  - [Reading](#reading)
-  - [Finished](#finished)
+- [Reading](#reading)
+- [Finished](#finished)
 
 ## Reading
 
@@ -91,13 +90,13 @@ The plugin isn't in Obsidian's community plugins yet. Copy `main.js`, `manifest.
 
 ## Settings
 
-| Setting                           | Default    | Description                                                                |
-| --------------------------------- | ---------- | -------------------------------------------------------------------------- |
-| **Raindown command**              | `raindown` | The raindown executable, or its full path                                  |
-| **Write back on save**            | On         | Write back to a note with directives once you stop typing                  |
-| **Bare directives in every note** | Off        | Directives on their own line, like `toc:`, in every note, as with `--bare` |
+| Setting              | Default    | Description                                                                          |
+| -------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| **Raindown command** | `raindown` | The raindown executable, or its full path                                            |
+| **Write-back**       | On         | Write back to a note with directives as you type                                     |
+| **Bare syntax**      | Off        | Recognise bare directives on their own line like `toc:` (equivalent to CLI `--bare`) |
 
-A bare directive, on its own line like `toc:`, only writes back in a note with `raindown: true` in its front matter, unless **Bare directives in every note** is on. Only names Raindown knows, like `toc:`, `list:` and your project's nodes, write anything, so a line like `Summary:` is left alone, but a line like `list:` that's only text gets a file list.
+A bare directive, on its own line like `toc:`, only writes back in a note with `raindown: true` in its front matter, unless **Bare syntax** is on. Only names Raindown knows like `toc:`, `list:` and your project's nodes write anything, so a line like `Summary:` is left alone.
 
 Adding, renaming or removing a note writes back the notes with lists, like `list:`, so they don't go stale.
 
@@ -108,13 +107,20 @@ Adding, renaming or removing a note writes back the notes with lists, like `list
 | **Raindown: Write back this note**           | Writes back now, and says what happened                             |
 | **Raindown: Run the endpoints in this note** | Runs the [endpoints](/docs/endpoints) without a response, like `-x` |
 | **Raindown: Write back all notes**           | Writes back every note with directives, and says how many changed   |
-| **Raindown: Download Raindown**              | Downloads the latest standalone binary, or updates it now           |
+| **Raindown: Find Raindown**                  | Looks for Raindown again, once you've installed it                  |
 
 > [!NOTE]
 > Unlike the [CLI](/docs/cli) endpoints in Obsidian never run on save, only via the command.
 
 ## Requirements
 
-The `raindown` executable. The first time the plugin can't find it, it looks on your shell's `PATH`, which Obsidian opened from the Dock doesn't have, and if it's not there either, offers to download the [standalone binary](https://raindown.dev/docs/getting-started#installation) from GitHub, checked against the release's checksums, to `~/.local/bin/raindown`, or `%LOCALAPPDATA%\Programs\raindown` on Windows, outside your vault so it isn't synced. It's only downloaded if you say so. Once a day at most, a binary it downloaded is checked against the latest release, and it asks before updating it. Turning an update down skips that release.
+The `raindown` executable, which you [install yourself](https://raindown.dev/docs/install) by pasting one command into a terminal, or with `gem install raindown`. Running that command again updates it. The plugin never installs or updates it, as Obsidian's developer policies don't allow that.
 
-It can also come from `gem install raindown`, or set the plugin's **Raindown command** to its full path. It's desktop only, as Obsidian on phones can't run Raindown.
+The first time the plugin can't find it, it looks in `~/.local/bin`, or `%LOCALAPPDATA%\Programs\raindown` on Windows, and on your shell's `PATH`, which Obsidian opened from the Dock doesn't have. If it's not there either, it shows the command to run, and **Check again** or **Raindown: Find Raindown** looks again once you have. You can also set the plugin's **Raindown command** to its full path.
+
+It's desktop only, as Obsidian on phones can't run Raindown.
+
+## Files and network
+
+- **Running Raindown** - Raindown is a separate program, so the plugin runs it to write back to your notes, and starts your shell once to find it on your `PATH`. Like any program you run, Raindown isn't limited to your vault, but the plugin only gives it file paths inside your vault.
+- **Network** - The plugin doesn't use the network itself. Raindown calls the URLs in a note's endpoints when you run **Raindown: Run the endpoints in this note**, and your vault's own nodes in `.raindown` are code that can use it too.

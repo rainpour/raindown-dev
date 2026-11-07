@@ -28,6 +28,8 @@ class Layout < LowNode
         <link rel="stylesheet" href="/components/toc/toc.css">
         <script src="/components/toc/toc.js" defer></script>
         <script src="/components/backdrop/backdrop.js" defer></script>
+        <link rel="stylesheet" href="/components/install/install.css">
+        <script src="/components/install/install.js" defer></script>
 
         <!-- Code is highlighted in the browser, since Raindown leaves it unhighlighted (see .raindown/config.yml). -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">

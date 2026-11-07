@@ -7,9 +7,17 @@ published: true
 
 ## Installation
 
+### Script
+
+The quickest way, on [macOS, Linux and Windows](/docs/install):
+
+```sh
+curl -fsSL https://raindown.dev/install.sh | sh
+```
+
 ### Binary
 
-Download a standalone binary:
+Or download a standalone binary:
 
 | OS                                            | x86_64                                                                                                | ARM64                                                                                               |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |

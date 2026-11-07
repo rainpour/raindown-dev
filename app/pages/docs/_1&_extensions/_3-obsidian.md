@@ -131,7 +131,7 @@ Adding, renaming or removing a note writes back the notes with lists, like `list
 | Command                                      | Does                                                                |
 | -------------------------------------------- | ------------------------------------------------------------------- |
 | **Raindown: Write back this note**           | Writes back now, and says what happened                             |
-| **Raindown: Run the endpoints in this note** | Runs the [endpoints](/docs/endpoints) without a response, like `-x` |
+| **Raindown: Run the endpoints in this note** | Runs the [endpoints](/docs/endpoint) without a response, like `-x` |
 | **Raindown: Write back all notes**           | Writes back every note with directives, and says how many changed   |
 | **Raindown: Find Raindown**                  | Looks for Raindown again, once you've installed it                  |
 

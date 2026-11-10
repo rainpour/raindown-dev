@@ -5,39 +5,61 @@ published: true
 
 <{ :toc }>
 
-Like tests in Postman or Bruno, an endpoint can say what its response should be, with `status:` and `schema:`:
+Like tests in Postman or Bruno, an endpoint can say what its response should be, with `status:` and `schema:`. Define a schema with `schema:`, its name and its fields below it, indented, then give its name to the endpoints below it:
 
 `````md
-endpoint: as: user status: 200 schema: Schema[id: Integer, email: String | nil, tags: Array[String]]
+schema: User
+  id: Integer
+  email: String | nil
+  tags: Array[String]
+
+endpoint: as: user status: 200 schema: User
 ```sh
 curl {base_url}/users/1
 ```
 `````
 
-A schema is a [LowType](https://github.com/low-rb/lowtype) type. `Schema[]` is a hash with named keys, a key whose type allows `nil` may be missing, and keys it doesn't name are allowed. Nest them, like `Schema[address: Schema[city: String]]`, and check lists, like `Array[Schema[id: Integer]]`. Write schemas with `Schema[]`, not `{}`, which reads as a variable. Raindown reads the type without running it, so only types, values, `|` and `[]` on `Array`, `Hash`, `Schema`, `Enum` and `Status` are allowed.
+A schema is a [LowType](https://github.com/low-rb/lowtype) type. Raindown reads `User` as `Schema[id: Integer, email: String | nil, tags: Array[String]]`, a hash with named keys, where a key whose type allows `nil` may be missing, and keys it doesn't name are allowed. Raindown reads the type without running it, so only types, values, `|` and `[]` on `Array`, `Hash`, `Schema`, `Enum` and `Status` are allowed.
 
-### Named schemas
+### Nesting
 
-For a bigger schema, name it with `schema:` and its fields below it, indented, then give its name to the endpoints below it:
+A key with no type holds the more indented fields under it, like `address:`, and a schema's name goes inside types, like `Array[User]`, and in the schemas below it, like `author: User`:
 
 `````md
-<!-- schema: User
+schema: User
   id: Integer
-  email: String | nil
   address:
     city: String
--->
 
-endpoint: schema: User
+schema: Post
+  title: String
+  author: User
+
+endpoint: schema: Array[Post]
 `````
 
-Raindown reads it as `Schema[id: Integer, email: String | nil, address: Schema[city: String]]`:
+### Inline schemas
 
-- **The name can be quoted**, like `'User'`, or not.
-- **A key with no type** holds the more indented fields under it, like `address:`.
-- **A name goes inside types**, like `schema: Array[User]`, and in schemas below it, like `author: User`.
-- **In a Raindown file**, write `schema: User` bare. Its fields end at the first line that isn't indented, and it shows in bold with its fields below it. In comments it's left out of the HTML.
+A small schema can be written in the endpoint itself, with `Schema[]`, nested like `Schema[address: Schema[city: String]]`, and in lists, like `Array[Schema[id: Integer]]`. Write schemas with `Schema[]`, not `{}`, which reads as a variable:
+
+`````md
+endpoint: schema: Schema[id: Integer, email: String | nil]
+`````
+
+### Where schemas go
+
+- **The name can be quoted**, like `schema: 'User'`, or not.
+- **In a Raindown file**, write `schema: User` bare. Its fields end at the first line that isn't indented, and it shows in bold with its fields below it.
+- **In a Markdown file**, write it in a comment, which is left out of the HTML, ending at `-->`:
+
+  ```md
+  <!-- schema: User
+    id: Integer
+  -->
+  ```
 - **Shared schemas** go in `.raindown/schemas.rd`, written bare the same way, and every file's endpoints can name them. A file's own schema with the same name wins.
+
+### Checking
 
 Raindown checks every response in the file, whether it's just run or was already there, by the status in the comment above it, so checking needs no requests. Responses fetched before Raindown kept statuses only have their schema checked. Failures are listed with where they are, like `api.md:3: id: expected Integer, received "1"`:
 

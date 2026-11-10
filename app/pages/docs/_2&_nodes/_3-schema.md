@@ -5,7 +5,7 @@ published: true
 
 <{ :toc }>
 
-Like tests in Postman or Bruno, an endpoint can say what its response should be, with `status:` and `schema:`. Define a schema with `schema:`, its name and its fields below it, indented, then give its name to the endpoints below it:
+Like tests in Postman or Bruno, an endpoint can say what its response should be, with [status:](/docs/endpoint#checking-responses) and `schema:`. Define a schema with `schema:`, its name and its fields below it, indented, then give its name to the endpoints below it:
 
 `````md
 schema: User

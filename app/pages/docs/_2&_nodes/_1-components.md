@@ -124,21 +124,26 @@ A name only starts a component block when it's a loaded component with a `rewrit
 
 ## Performance
 
-Components can be written in either Ruby or JavaScript for any feature, but one will be faster at a particular task:
+Components can be written in either Ruby or JavaScript for any feature, but one will be faster at a particular task. Hover over a language to see by how much:
 
-|                 | CLI  | Desktop app | Obsidian plugin |
-| --------------- | ---- | ----------- | --------------- |
-| **Processsing** | Ruby | Ruby        | JS              |
-| **Write-back**  | Ruby | Ruby        | JS              |
-| **Rendering**   | Ruby | Ruby        | JS              |
-| **Rasterizing** | -    | JS          | -               |
-| **Animation**   | -    | JS          | -               |
+<div class="performance">
 
-Choose the language that is fastest for the main task and main platform your plugin is for. 
+| | CLI | Desktop app | Obsidian plugin |
+| --- | --- | --- | --- |
+| **Processing** | <span class="langs"><span class="lang" data-tooltip="Fastest: 1.25× as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="80% as fast as JS, or 3× as fast with while loops"><img src="/assets/ruby.svg" alt="Ruby"></span></span> | <span class="langs"><span class="lang" data-tooltip="Fastest: 12× as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="8% as fast as JS"><img src="/assets/ruby.svg" alt="Ruby"></span></span> | <span class="langs"><span class="lang" data-tooltip="Fastest: 33× as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="3% as fast as JS, as Ruby runs in WebAssembly here"><img src="/assets/ruby.svg" alt="Ruby"></span></span> |
+| **Write-back** | <span class="langs"><span class="lang" data-tooltip="Fastest: 1.6× as fast as JS"><img src="/assets/ruby.svg" alt="Ruby"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="64% as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"></span></span> | <span class="langs"><span class="lang" data-tooltip="Fastest: 1.8× as fast as JS"><img src="/assets/ruby.svg" alt="Ruby"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="57% as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"></span></span> | <span class="langs"><span class="lang" data-tooltip="Fastest, just: 1.04× as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="96% as fast as JS"><img src="/assets/ruby.svg" alt="Ruby"></span></span> |
+| **Rendering** | <span class="langs"><span class="lang" data-tooltip="Fastest, just: 1.06× as fast as JS"><img src="/assets/ruby.svg" alt="Ruby"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="94% as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"></span></span> | - | <span class="langs"><span class="lang" data-tooltip="Fastest: 1.3× as fast as JS"><img src="/assets/ruby.svg" alt="Ruby"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="78% as fast as Ruby"><img src="/assets/javascript.svg" alt="JS"></span></span> |
+| **Rasterizing** | - | <span class="langs"><span class="lang" data-tooltip="Fastest: paints in the page, every frame if asked"><img src="/assets/javascript.svg" alt="JS"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="Each paint is a trip to Ruby and back, about every quarter second for a full-width area"><img src="/assets/ruby.svg" alt="Ruby"></span></span> | - |
+| **Animation** | - | <span class="langs"><span class="lang" data-tooltip="Fastest: up to 60 frames a second"><img src="/assets/javascript.svg" alt="JS"> <span class="medal" aria-label="1st place">🥇</span></span><span class="lang" data-tooltip="About 4 frames a second for a full-width area"><img src="/assets/ruby.svg" alt="Ruby"></span></span> | - |
 
-Remember that each language can still do the thing:
-- Ruby can still do animation, it's just much slower at it
-- JS still does CLI and write-back in desktop, it's just half the speed... which is nothing when it's 1.6ms vs 3.2ms
+</div>
 
-**Ruby:** Best at CLI and desktop write-back
-**JavaScript:** Best at animation and mobile
+Times are for a note with 10 components, the middle of 10 runs. The desktop app shows Markdown rather than rendering HTML, so it has no rendering.
+
+Choose the language that's fastest at the main task on the main platform your component is for. Each language can still do everything, and the gap is often small:
+- Write-back and rendering take under 7 ms for 10 components in either language, everywhere.
+- Processing, like counting and parsing in loops, is where the gap is big: JavaScript runs on V8 in the desktop app and Obsidian, while Ruby runs in WebAssembly in Obsidian.
+- Ruby can still animate in the desktop app, just a few frames a second.
+
+**Ruby:** Best at write-back and rendering in the CLI and desktop app
+**JavaScript:** Best at processing and animation

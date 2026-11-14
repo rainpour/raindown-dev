@@ -229,3 +229,34 @@ main {
 .vscode-icon {
   --logo: url(/assets/vscode.svg);
 }
+
+/* The languages in a cell of the performance table, fastest first, with a medal, and how they compare on hover. */
+.performance .langs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+.performance .lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  border-bottom: none;
+
+  img {
+    height: 1.4rem;
+    width: 1.4rem;
+  }
+  & + .lang {
+    opacity: 0.6;
+
+    img {
+      height: 1.1rem;
+      width: 1.1rem;
+    }
+  }
+}
+.performance .medal {
+  font-size: 0.9rem;
+  line-height: 1;
+}

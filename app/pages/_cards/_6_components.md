@@ -1,5 +1,6 @@
 ---
 title: Custom Components
+link: /docs/components
 summary: Create components with custom output
 ---
 

@@ -1,9 +1,18 @@
 ---
 title: Components
 published: true
+raindown: true
 ---
 
-<{ :toc }>
+toc:
+- [Custom Components](#custom-components)
+  - [Ruby](#ruby)
+    - [Overriding Core Nodes](#overriding-core-nodes)
+  - [JavaScript](#javascript)
+  - [Markdown](#markdown)
+- [Props](#props)
+- [Lifecycle](#lifecycle)
+- [Performance](#performance)
 
 > [!NOTE]
 > A node is how it's built and a component is how it's rendered. They are data and logic that you want to include from another place into your page. Nodes that start with a capital letter like `Changelog:` are always components.
@@ -112,3 +121,24 @@ A name only starts a component block when it's a loaded component with a `rewrit
 
 > [!WARNING]
 > Components run your project's code whenever Raindown writes back to or renders the file.
+
+## Performance
+
+Components can be written in either Ruby or JavaScript for any feature, but one will be faster at a particular task:
+
+|                 | CLI  | Desktop app | Obsidian plugin |
+| --------------- | ---- | ----------- | --------------- |
+| **Processsing** | Ruby | Ruby        | JS              |
+| **Write-back**  | Ruby | Ruby        | JS              |
+| **Rendering**   | Ruby | Ruby        | JS              |
+| **Rasterizing** | -    | JS          | -               |
+| **Animation**   | -    | JS          | -               |
+
+Choose the language that is fastest for the main task and main platform your plugin is for. 
+
+Remember that each language can still do the thing:
+- Ruby can still do animation, it's just much slower at it
+- JS still does CLI and write-back in desktop, it's just half the speed... which is nothing when it's 1.6ms vs 3.2ms
+
+**Ruby:** Best at CLI and desktop write-back
+**JavaScript:** Best at animation and mobile

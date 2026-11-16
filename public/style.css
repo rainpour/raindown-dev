@@ -280,7 +280,7 @@ main {
 .performance th:last-child,
 .performance td:last-child,
 .performance tbody tr:last-child td {
-  background-color: color-mix(in srgb, var(--pico-background-color) 80%, black);
+  background-color: color-mix(in srgb, var(--pico-background-color) 70%, black);
 }
 .performance th:last-child,
 .performance tbody tr:last-child td:first-child {

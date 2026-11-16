@@ -276,11 +276,11 @@ main {
 }
 
 /* The totals, of each task across the platforms, the last column, and of each platform across the tasks, the last
-   row, on grey, under and beside TOTAL in the page's own colour. */
+   row, on the page's background a fifth darker, under and beside TOTAL in the page's own colour. */
 .performance th:last-child,
 .performance td:last-child,
 .performance tbody tr:last-child td {
-  background-color: var(--pico-muted-color);
+  background-color: color-mix(in srgb, var(--pico-background-color) 80%, black);
 }
 .performance th:last-child,
 .performance tbody tr:last-child td:first-child {

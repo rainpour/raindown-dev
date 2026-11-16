@@ -274,3 +274,16 @@ main {
   font-size: 0.9rem;
   line-height: 1;
 }
+
+/* The totals, of each task across the platforms, the last column, and of each platform across the tasks, the last
+   row, on grey, under and beside TOTAL in the page's own colour. */
+.performance th:last-child,
+.performance td:last-child,
+.performance tbody tr:last-child td {
+  background-color: var(--pico-muted-color);
+}
+.performance th:last-child,
+.performance tbody tr:last-child td:first-child {
+  color: var(--pico-background-color);
+  text-transform: uppercase;
+}

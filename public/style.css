@@ -276,7 +276,7 @@ main {
 }
 
 /* The totals, of each task across the platforms, the last column, and of each platform across the tasks, the last
-   row, on the page's background a fifth darker, under and beside TOTAL in the page's own colour. */
+   row, on the page's background a fifth darker, under and beside TOTAL in Pico's muted grey. */
 .performance th:last-child,
 .performance td:last-child,
 .performance tbody tr:last-child td {
@@ -284,6 +284,6 @@ main {
 }
 .performance th:last-child,
 .performance tbody tr:last-child td:first-child {
-  color: var(--pico-background-color);
+  color: var(--pico-muted-color);
   text-transform: uppercase;
 }
